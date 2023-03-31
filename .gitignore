@@ -80,8 +80,12 @@ ENV/
 # ASV
 .asv/
 
-# PyCharm IDE
+# IDEs
+# PyCharm
 /sandbox
 /cover
 /coverage-report
 .idea/
+
+# VSCode
+.vscode/
