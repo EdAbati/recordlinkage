@@ -42,15 +42,17 @@ class FellegiSunter(object):
         self._column_labels = None
 
     def _decision_rule(self, probabilities, threshold):
-
         return (probabilities >= threshold).astype(int)
 
     def _match_class_pos(self):
         """Return the position of the match class"""
         # TODO: add notfitted warnings
         if self.kernel.classes_.shape[0] != 2:
-            raise ValueError("Number of classes is {}, expected 2.".format(
-                self.kernel.classes_.shape[0]))
+            raise ValueError(
+                "Number of classes is {}, expected 2.".format(
+                    self.kernel.classes_.shape[0]
+                )
+            )
 
         # # get the position of match probabilities
         # classes = list(self.kernel.classes_)
@@ -62,8 +64,11 @@ class FellegiSunter(object):
         """Return the position of the non-match class"""
         # TODO: add notfitted warnings
         if self.kernel.classes_.shape[0] != 2:
-            raise ValueError("Number of classes is {}, expected 2.".format(
-                self.kernel.classes_.shape[0]))
+            raise ValueError(
+                "Number of classes is {}, expected 2.".format(
+                    self.kernel.classes_.shape[0]
+                )
+            )
 
         # # get the position of match probabilities
         # classes = list(self.kernel.classes_)
@@ -81,7 +86,6 @@ class FellegiSunter(object):
     #     self.kernel.class_log_prior_[self._match_class_pos()] = value
 
     def _prob_inverse_transform(self, prob):
-
         result = {}
         counter = 0
 
@@ -98,7 +102,7 @@ class FellegiSunter(object):
                 column_label_i = i
 
             # select relevant m values
-            prob_bin = prob[counter:counter + len(keys)]
+            prob_bin = prob[counter : counter + len(keys)]
             result[column_label_i] = {k: v for k, v in zip(keys, prob_bin)}
             counter += len(keys)
 
@@ -116,8 +120,7 @@ class FellegiSunter(object):
 
     @property
     def log_u_probs(self):
-        """Log probability P(x_i=1|Non-match) as described in the FS framework
-        """
+        """Log probability P(x_i=1|Non-match) as described in the FS framework"""
         u = self.kernel.feature_log_prob_[self._nonmatch_class_pos()]
         return self._prob_inverse_transform(u)
 
@@ -239,10 +242,9 @@ class KMeansClassifier(SKLearnAdapter, Classifier):
 
     """
 
-    def __init__(self,
-                 match_cluster_center=None,
-                 nonmatch_cluster_center=None,
-                 **kwargs):
+    def __init__(
+        self, match_cluster_center=None, nonmatch_cluster_center=None, **kwargs
+    ):
         super(KMeansClassifier, self).__init__()
 
         # initialize the classifier
@@ -256,9 +258,12 @@ class KMeansClassifier(SKLearnAdapter, Classifier):
         """Set the centers of the clusters"""
 
         # Set the start point of the classifier.
-        self.kernel.init = numpy.array([[0.05] * len(list(comparison_vectors)),
-                                        [0.95] * len(list(comparison_vectors))
-                                        ])
+        self.kernel.init = numpy.array(
+            [
+                [0.05] * len(list(comparison_vectors)),
+                [0.95] * len(list(comparison_vectors)),
+            ]
+        )
 
     @property
     def match_cluster_center(self):
@@ -266,14 +271,13 @@ class KMeansClassifier(SKLearnAdapter, Classifier):
 
     @match_cluster_center.setter
     def match_cluster_center(self, value):
-
         if value is None:
             return
 
         # this attribute is filled in KMeans.fit and is required for predict
         self.kernel._n_threads = 1
 
-        if not hasattr(self.kernel, 'cluster_centers_'):
+        if not hasattr(self.kernel, "cluster_centers_"):
             self.kernel.cluster_centers_ = numpy.empty((2, len(value)))
             self.kernel.cluster_centers_[:] = numpy.nan
 
@@ -285,20 +289,19 @@ class KMeansClassifier(SKLearnAdapter, Classifier):
 
     @nonmatch_cluster_center.setter
     def nonmatch_cluster_center(self, value):
-
         if value is None:
             return
 
-        if not hasattr(self.kernel, 'cluster_centers_'):
+        if not hasattr(self.kernel, "cluster_centers_"):
             self.kernel.cluster_centers_ = numpy.empty((2, len(value)))
             self.kernel.cluster_centers_[:] = numpy.nan
 
         self.kernel.cluster_centers_[0, :] = numpy.asarray(value)
 
     def prob(self, *args, **kwargs):
-
-        raise AttributeError("It is not possible to compute "
-                             "probabilities for the KMeansClassfier")
+        raise AttributeError(
+            "It is not possible to compute " "probabilities for the KMeansClassfier"
+        )
 
 
 class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
@@ -352,16 +355,15 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
 
     @property
     def params(self):
-        return {'coefficients': self.coefficients, 'intercept': self.intercept}
+        return {"coefficients": self.coefficients, "intercept": self.intercept}
 
     @params.setter
     def params(self, value):
-
         if not isinstance(value, dict):
             raise ValueError("parameters are of wrong type")
 
-        self.coefficients = value['coefficients']
-        self.intercept = value['intercept']
+        self.coefficients = value["coefficients"]
+        self.intercept = value["intercept"]
 
     @property
     def coefficients(self):
@@ -369,7 +371,6 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
 
     @coefficients.setter
     def coefficients(self, value):
-
         if value is not None:
             value = numpy.asarray(value)
             self.kernel.coef_ = value.reshape((1, len(value)))
@@ -385,7 +386,6 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
 
     @intercept.setter
     def intercept(self, value):
-
         if value is not None:
             value = numpy.asarray(value)
             value = numpy.atleast_2d(value)
@@ -413,9 +413,9 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
         from sklearn.exceptions import NotFittedError
 
         try:
-
-            fit_bool = hasattr(self.kernel, "intercept_") and \
-                hasattr(self.kernel, "coef_")
+            fit_bool = hasattr(self.kernel, "intercept_") and hasattr(
+                self.kernel, "coef_"
+            )
 
             if fit_bool and not hasattr(self.kernel, "classes_"):
                 self.kernel.classes_ = numpy.array([0, 1])
@@ -427,8 +427,8 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
         except NotFittedError:
             raise NotFittedError(
                 "{} is not fitted yet. Call 'fit' with appropriate "
-                "arguments before using this method.".format(
-                    type(self).__name__))
+                "arguments before using this method.".format(type(self).__name__)
+            )
 
         return prediction
 
@@ -465,11 +465,7 @@ class NaiveBayesClassifier(FellegiSunter, SKLearnAdapter, Classifier):
 
     """
 
-    def __init__(self,
-                 binarize=None,
-                 alpha=1e-4,
-                 use_col_names=True,
-                 **kwargs):
+    def __init__(self, binarize=None, alpha=1e-4, use_col_names=True, **kwargs):
         super(NaiveBayesClassifier, self).__init__(use_col_names=use_col_names)
 
         self.kernel = NaiveBayes(alpha=alpha, binarize=binarize, **kwargs)
@@ -517,9 +513,9 @@ class SVMClassifier(SKLearnAdapter, Classifier):
         self.kernel = svm.LinearSVC(*args, **kwargs)
 
     def prob(self, *args, **kwargs):
-
-        raise AttributeError("It is not possible to compute "
-                             "probabilities for the SVMClassfier")
+        raise AttributeError(
+            "It is not possible to compute " "probabilities for the SVMClassfier"
+        )
 
 
 class ECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
@@ -566,22 +562,21 @@ class ECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
 
     """
 
-    def __init__(self,
-                 init='jaro',
-                 binarize=None,
-                 max_iter=100,
-                 atol=10e-5,
-                 use_col_names=True,
-                 *args,
-                 **kwargs):
+    def __init__(
+        self,
+        init="jaro",
+        binarize=None,
+        max_iter=100,
+        atol=10e-5,
+        use_col_names=True,
+        *args,
+        **kwargs
+    ):
         super(ECMClassifier, self).__init__(use_col_names=use_col_names)
 
-        self.kernel = ECM(init=init,
-                          binarize=binarize,
-                          max_iter=max_iter,
-                          atol=atol,
-                          *args,
-                          **kwargs)
+        self.kernel = ECM(
+            init=init, binarize=binarize, max_iter=max_iter, atol=atol, *args, **kwargs
+        )
 
     def fit(self, X, *args, **kwargs):
         __doc__ = Classifier.__doc__  # noqa
@@ -594,5 +589,4 @@ class ECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
     @property
     def algorithm(self):
         # Deprecated
-        raise AttributeError(
-            "This attribute is deprecated. Use 'classifier' instead.")
+        raise AttributeError("This attribute is deprecated. Use 'classifier' instead.")

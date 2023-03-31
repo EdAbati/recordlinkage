@@ -3,8 +3,8 @@ Contributing
 ************
 
 Thanks for your interest in contributing to the Python Record Linkage Toolkit.
-There is a lot of work to do. See `Github <https://github.com/J535D165/recordlinkage/graphs/contributors>`_ 
-for the contributors to this package. 
+There is a lot of work to do. See `Github <https://github.com/J535D165/recordlinkage/graphs/contributors>`_
+for the contributors to this package.
 
 The workflow for contributing is as follows:
 
@@ -55,9 +55,3 @@ Run the following command to test all versions since tag v0.6.0
 .. code:: sh
 
 	asv run --skip-existing-commits v0.6.0..master
-
-
-
-
-
-

@@ -6,7 +6,6 @@ from setuptools import find_packages, setup
 
 import versioneer
 
-
 # read the contents of your README file
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
@@ -16,7 +15,7 @@ long_description = (this_directory / "README.md").read_text()
 OPTIONAL_DEPS = [
     "networkx>=2",  # clustering and hard matching
     "bottleneck",  # performance
-    "numexpr"  # performance
+    "numexpr",  # performance
 ]
 
 setup(
@@ -25,14 +24,11 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     author="Jonathan de Bruin",
     author_email="jonathandebruinhome@gmail.com",
-
     platforms="any",
-
     # Description
     description="A record linkage toolkit for linking and deduplication",
     long_description=long_description,
-    long_description_content_type='text/markdown',
-
+    long_description_content_type="text/markdown",
     # Github
     url="https://github.com/J535D165/recordlinkage",
     classifiers=[
@@ -43,9 +39,8 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3 :: Only"
+        "Programming Language :: Python :: 3 :: Only",
     ],
-
     # Python version in line with pandas' python version support
     # https://pandas.pydata.org/docs/getting_started/install.html
     python_requires=">=3.6",
@@ -55,17 +50,13 @@ setup(
         "pandas>=1,<2",
         "scipy>=1",
         "scikit-learn>=0.19.0",
-        "joblib"
+        "joblib",
     ],
-    extras_require={
-        "all": OPTIONAL_DEPS,
-        "test": ["pytest"] + OPTIONAL_DEPS
-    },
+    extras_require={"all": OPTIONAL_DEPS, "test": ["pytest"] + OPTIONAL_DEPS},
     packages=find_packages(
-        exclude=["benchmarks", "docs",
-                 "*.tests", "*.tests.*", "tests.*", "tests"]
+        exclude=["benchmarks", "docs", "*.tests", "*.tests.*", "tests.*", "tests"]
     ),
     include_package_data=True,
-    package_data={'recordlinkage': ['datasets/*/*.csv']},
-    license='BSD-3-Clause'
+    package_data={"recordlinkage": ["datasets/*/*.csv"]},
+    license="BSD-3-Clause",
 )

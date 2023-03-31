@@ -40,13 +40,12 @@ class SKLearnAdapter(object):
         except NotFittedError:
             raise NotFittedError(
                 "{} is not fitted yet. Call 'fit' with appropriate "
-                "arguments before using this method.".format(
-                    type(self).__name__))
+                "arguments before using this method.".format(type(self).__name__)
+            )
 
         return prediction
 
     def _fit(self, features, y=None):
-
         if y is None:  # unsupervised
             self.kernel.fit(features)
         else:
@@ -112,13 +111,12 @@ class KerasAdapter(object):
         except NotFittedError:
             raise NotFittedError(
                 "{} is not fitted yet. Call 'fit' with appropriate "
-                "arguments before using this method.".format(
-                    type(self).__name__))
+                "arguments before using this method.".format(type(self).__name__)
+            )
 
         return prediction
 
     def _fit(self, features, y=None):
-
         self.kernel.fit(features, y)
 
     def _prob_match(self, features):

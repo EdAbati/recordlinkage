@@ -26,15 +26,18 @@ classification_return_type_doc = """
 
 """
 
-with cf.config_prefix('indexing'):
-    cf.register_option('pairs',
-                       'multiindex',
-                       pairs_type_doc,
-                       validator=is_one_of_factory(['multiindex']))
+with cf.config_prefix("indexing"):
+    cf.register_option(
+        "pairs",
+        "multiindex",
+        pairs_type_doc,
+        validator=is_one_of_factory(["multiindex"]),
+    )
 
-with cf.config_prefix('classification'):
-    cf.register_option('return_type',
-                       'index',
-                       classification_return_type_doc,
-                       validator=is_one_of_factory(
-                           ['index', 'series', 'array']))
+with cf.config_prefix("classification"):
+    cf.register_option(
+        "return_type",
+        "index",
+        classification_return_type_doc,
+        validator=is_one_of_factory(["index", "series", "array"]),
+    )

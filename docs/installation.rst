@@ -49,6 +49,3 @@ Optional dependecies
 --------------------
 
 - networkx - for network operations like connected components
-
-
-

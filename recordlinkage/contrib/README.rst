@@ -14,7 +14,7 @@ Examples
 
    from recordlinkage.contrib.index import NeighbourhoodBlock
 
-   # or 
+   # or
 
    from recordlinkage.contrib.compare.random import RandomContinuous
 

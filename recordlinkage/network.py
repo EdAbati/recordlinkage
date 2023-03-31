@@ -26,18 +26,16 @@ class OneToOneLinking(object):
 
     """
 
-    def __init__(self, method='greedy'):
+    def __init__(self, method="greedy"):
         super(OneToOneLinking, self).__init__()
 
         self.method = method
 
     @classmethod
     def _bool_duplicated(cls, links, level):
-
         return links.get_level_values(level).duplicated()
 
     def _compute_greedy(self, links):
-
         result = []
         set_a = set()
         set_b = set()
@@ -55,10 +53,12 @@ class OneToOneLinking(object):
             if not is_pandas_multiindex(links):
                 raise TypeError("expected pandas.MultiIndex")
             elif not is_pandas_2d_multiindex(links):
-                raise ValueError("pandas.MultiIndex has incorrect number of "
-                                 "levels (expected 2 levels)")
+                raise ValueError(
+                    "pandas.MultiIndex has incorrect number of "
+                    "levels (expected 2 levels)"
+                )
 
-        if self.method == 'greedy':
+        if self.method == "greedy":
             return self._compute_greedy(links)
         else:
             raise ValueError("unknown matching method {}".format(self.method))
@@ -121,13 +121,12 @@ class OneToManyLinking(OneToOneLinking):
 
     """
 
-    def __init__(self, level=0, method='greedy'):
+    def __init__(self, level=0, method="greedy"):
         super(OneToManyLinking, self).__init__(method=method)
 
         self.level = level
 
     def _compute_greedy(self, links):
-
         source_dupl_bool = self._bool_duplicated(links, self.level)
         return links[~source_dupl_bool]
 
@@ -187,12 +186,12 @@ class ConnectedComponents(object):
 
         graph_pairs = nx.Graph()
         graph_pairs.add_edges_from(links.values)
-        connected_pairs = (graph_pairs.subgraph(c).copy()
-                           for c in nx.connected_components(graph_pairs))
+        connected_pairs = (
+            graph_pairs.subgraph(c).copy() for c in nx.connected_components(graph_pairs)
+        )
 
         links_result = [
-            pd.MultiIndex.from_tuples(subgraph.edges())
-            for subgraph in connected_pairs
+            pd.MultiIndex.from_tuples(subgraph.edges()) for subgraph in connected_pairs
         ]
 
         return links_result

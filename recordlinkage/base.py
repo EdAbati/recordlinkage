@@ -38,13 +38,12 @@ def _parallel_compare_helper(class_obj, pairs, x, x_link=None):
 def chunk_pandas(frame_or_series, chunksize=None):
     """Chunk a frame into smaller, equal parts."""
     if not isinstance(chunksize, int):
-        raise ValueError('argument chunksize needs to be integer type')
+        raise ValueError("argument chunksize needs to be integer type")
 
     bins = np.arange(0, len(frame_or_series), step=chunksize)
 
     for b in bins:
-
-        yield frame_or_series[b:b + chunksize]
+        yield frame_or_series[b : b + chunksize]
 
 
 class BaseIndex(object):
@@ -55,9 +54,7 @@ class BaseIndex(object):
     """
 
     def __init__(self, algorithms=[]):
-
-        logging.info("indexing - initialize {} class".format(
-            self.__class__.__name__))
+        logging.info("indexing - initialize {} class".format(self.__class__.__name__))
 
         self.algorithms = []
         self.add(algorithms)
@@ -137,28 +134,31 @@ class BaseIndex(object):
         n = pairs.shape[0]
         eta = time.time() - start_time
         rr = 1 - n / n_max
-        i_max = '?' if self._i_max is None else self._i_max
+        i_max = "?" if self._i_max is None else self._i_max
 
         self._eta.append(eta)
         self._n.append(n)
         self._n_max.append(n_max)
 
         # log
-        logging.info("indexing [{:d}/{}] - time: {:.2f}s - pairs: {:d}/{:d} - "
-                     "rr: {:0.5f}".format(self._i, i_max, eta, n, n_max, rr))
+        logging.info(
+            "indexing [{:d}/{}] - time: {:.2f}s - pairs: {:d}/{:d} - "
+            "rr: {:0.5f}".format(self._i, i_max, eta, n, n_max, rr)
+        )
 
         # log total
         if self._output_log_total:
-
             n_total = np.sum(self._n)
             n_max_total = np.sum(self._n_max)
             rr_avg = 1 - n_total / n_max_total
             eta_total = np.sum(self._eta)
 
-            logging.info("indexing [{:d}/{}] - time: {:.2f}s - "
-                         "pairs_total: {:d}/{:d} - rr_total: {:0.5f}".format(
-                             self._i, i_max, eta_total, n_total, n_max_total,
-                             rr_avg))
+            logging.info(
+                "indexing [{:d}/{}] - time: {:.2f}s - "
+                "pairs_total: {:d}/{:d} - rr_total: {:0.5f}".format(
+                    self._i, i_max, eta_total, n_total, n_max_total, rr_avg
+                )
+            )
 
         self._i += 1
 
@@ -206,10 +206,11 @@ class BaseIndexAlgorithm(object):
         custom_index.index()
 
     """
+
     name = None
     description = None
 
-    def __init__(self, verify_integrity=True, suffixes=('_1', '_2')):
+    def __init__(self, verify_integrity=True, suffixes=("_1", "_2")):
         super(BaseIndexAlgorithm, self).__init__()
 
         self.suffixes = suffixes
@@ -223,22 +224,18 @@ class BaseIndexAlgorithm(object):
         return repr(self)
 
     def _deduplication(self, x):
-
         if isinstance(x, (tuple, list)) and len(x) > 1:
             return False
         else:
             return True
 
     def _verify_integrety(self, x):
-
         if isinstance(x.index, pandas.Index):
-
             if not x.index.is_unique:
-                raise ValueError('index of DataFrame is not unique')
+                raise ValueError("index of DataFrame is not unique")
 
         elif isinstance(x.index, pandas.MultiIndex):
-            raise ValueError(
-                'expected pandas.Index instead of pandas.MultiIndex')
+            raise ValueError("expected pandas.Index instead of pandas.MultiIndex")
 
     def _link_index(self, df_a, df_b):
         """Build an index for linking two datasets.
@@ -257,8 +254,7 @@ class BaseIndexAlgorithm(object):
             contains the index values of two records.
 
         """
-        raise NotImplementedError(
-            "Not possible to call index for the BaseEstimator")
+        raise NotImplementedError("Not possible to call index for the BaseEstimator")
 
     def _dedup_index(self, df_a):
         """Build an index for duplicate detection in a dataset.
@@ -288,18 +284,15 @@ class BaseIndexAlgorithm(object):
         return pairs[pairs.codes[0] > pairs.codes[1]]
 
     def _make_index_names(self, name1, name2):
-
-        if pandas.notnull(name1) and pandas.notnull(name2) and \
-                (name1 == name2):
+        if pandas.notnull(name1) and pandas.notnull(name2) and (name1 == name2):
             return [
                 "{}{}".format(name1, self.suffixes[0]),
-                "{}{}".format(name1, self.suffixes[1])
+                "{}{}".format(name1, self.suffixes[1]),
             ]
         else:
             return [name1, name2]
 
     def fit(self):
-
         raise AttributeError("indexing object has no attribute 'fit'")
 
     def index(self, x, x_link=None):
@@ -331,22 +324,19 @@ class BaseIndexAlgorithm(object):
         elif isinstance(x, (list, tuple)):  # dedup or linking (single arg)
             x = tuple(x)
         else:  # dedup (single arg)
-            x = (x, )
+            x = (x,)
 
         if self.verify_integrity:
-
             for df in x:
                 self._verify_integrety(df)
 
         # linking
         if not self._deduplication(x):
-
             pairs = self._link_index(*x)
             names = self._make_index_names(x[0].index.name, x[1].index.name)
 
         # deduplication
         else:
-
             pairs = self._dedup_index(*x)
             names = self._make_index_names(x[0].index.name, x[0].index.name)
 
@@ -382,13 +372,7 @@ class BaseCompareFeature(object):
     name = None
     description = None
 
-    def __init__(self,
-                 labels_left,
-                 labels_right,
-                 args=(),
-                 kwargs={},
-                 label=None):
-
+    def __init__(self, labels_left, labels_right, args=(), kwargs={}, label=None):
         self.labels_left = labels_left
         self.labels_right = labels_right
         self.args = args
@@ -422,8 +406,7 @@ class BaseCompareFeature(object):
 
         """
         if self._f_compare_vectorized:
-            return self._f_compare_vectorized(*(args + self.args),
-                                              **self.kwargs)
+            return self._f_compare_vectorized(*(args + self.args), **self.kwargs)
         else:
             raise NotImplementedError()
 
@@ -480,7 +463,8 @@ class BaseCompareFeature(object):
         if not is_pandas_2d_multiindex(pairs):
             raise ValueError(
                 "expected pandas.MultiIndex with record pair indices "
-                "as first argument")
+                "as first argument"
+            )
 
         if not isinstance(x, pandas.DataFrame):
             raise ValueError("expected pandas.DataFrame as second argument")
@@ -530,10 +514,8 @@ class BaseCompare(object):
 
     """
 
-    def __init__(self, features=[], n_jobs=1, indexing_type='label', **kwargs):
-
-        logging.info("comparing - initialize {} class".format(
-            self.__class__.__name__))
+    def __init__(self, features=[], n_jobs=1, indexing_type="label", **kwargs):
+        logging.info("comparing - initialize {} class".format(self.__class__.__name__))
 
         self.features = []
         self.add(features)
@@ -560,7 +542,9 @@ class BaseCompare(object):
                 "It seems you are using the older version of the Compare API, "
                 "see the documentation about how to update to the new API. "
                 "http://recordlinkage.readthedocs.io/"
-                "en/latest/ref-compare.html", DeprecationWarning)
+                "en/latest/ref-compare.html",
+                DeprecationWarning,
+            )
 
     def __repr__(self):
         class_name = self.__class__.__name__
@@ -585,8 +569,7 @@ class BaseCompare(object):
         else:
             self.features.append(model)
 
-    def compare_vectorized(self, comp_func, labels_left, labels_right, *args,
-                           **kwargs):
+    def compare_vectorized(self, comp_func, labels_left, labels_right, *args, **kwargs):
         """Compute the similarity between values with a callable.
 
         This method initialises the comparing of values with a custom
@@ -620,7 +603,7 @@ class BaseCompare(object):
             This argument is a keyword argument and can not be part of the
             arguments of comp_func.
         """
-        label = kwargs.pop('label', None)
+        label = kwargs.pop("label", None)
 
         if isinstance(labels_left, tuple):
             labels_left = list(labels_left)
@@ -628,11 +611,9 @@ class BaseCompare(object):
         if isinstance(labels_right, tuple):
             labels_right = list(labels_right)
 
-        feature = BaseCompareFeature(labels_left,
-                                     labels_right,
-                                     args,
-                                     kwargs,
-                                     label=label)
+        feature = BaseCompareFeature(
+            labels_left, labels_right, args, kwargs, label=label
+        )
         feature._f_compare_vectorized = comp_func
 
         self.add(feature)
@@ -643,7 +624,6 @@ class BaseCompare(object):
         labels = []
 
         for compare_func in self.features:
-
             labels = labels + listify(compare_func.labels_left)
 
         # check requested labels (for better error messages)
@@ -658,7 +638,6 @@ class BaseCompare(object):
         labels = []
 
         for compare_func in self.features:
-
             labels = labels + listify(compare_func.labels_right)
 
         # check requested labels (for better error messages)
@@ -669,17 +648,16 @@ class BaseCompare(object):
         return unique(labels)
 
     def _compute_parallel(self, pairs, x, x_link=None, n_jobs=1):
-
         df_chunks = index_split(pairs, n_jobs)
         result_chunks = Parallel(n_jobs=n_jobs)(
             delayed(_parallel_compare_helper)(self, chunk, x, x_link)
-            for chunk in df_chunks)
+            for chunk in df_chunks
+        )
 
         result = pandas.concat(result_chunks)
         return result
 
     def _compute(self, pairs, x, x_link=None):
-
         # start the timer for the comparing step
         start_time = time.time()
 
@@ -699,18 +677,16 @@ class BaseCompare(object):
         features = []
 
         for feat in self.features:
-
             # --- DATA1
             # None: no data passed to func
             if feat.labels_left is None:
                 data1 = tuple()
             # empty array: empty df with index passed to func
             elif feat.labels_left == []:
-                data1 = (df_a_indexed[[]], )
+                data1 = (df_a_indexed[[]],)
             # else: subset columns and pass tuple of series
             else:
-                data1 = tuple(
-                    [df_a_indexed[lbl] for lbl in listify(feat.labels_left)])
+                data1 = tuple([df_a_indexed[lbl] for lbl in listify(feat.labels_left)])
 
             # --- DATA2
             # None: no data passed to func
@@ -718,11 +694,10 @@ class BaseCompare(object):
                 data2 = tuple()
             # empty array: empty df with index passed to func
             elif feat.labels_right == []:
-                data2 = (df_b_indexed[[]], )
+                data2 = (df_b_indexed[[]],)
             # else: subset columns and pass tuple of series
             else:
-                data2 = tuple(
-                    [df_b_indexed[lbl] for lbl in listify(feat.labels_right)])
+                data2 = tuple([df_b_indexed[lbl] for lbl in listify(feat.labels_right)])
 
             result = feat._compute(data1, data2)
             features.append((result, feat.label))
@@ -731,24 +706,28 @@ class BaseCompare(object):
 
         # log timing
         n = pairs.shape[0]
-        i_max = '?' if self._i_max is None else self._i_max
+        i_max = "?" if self._i_max is None else self._i_max
         eta = time.time() - start_time
         self._eta.append(eta)
         self._n.append(n)
 
         # log
-        logging.info("comparing [{:d}/{}] - time: {:.2f}s - pairs: {}".format(
-            self._i, i_max, eta, n))
+        logging.info(
+            "comparing [{:d}/{}] - time: {:.2f}s - pairs: {}".format(
+                self._i, i_max, eta, n
+            )
+        )
 
         # log total
         if self._output_log_total:
-
             n_total = np.sum(self._n)
             eta_total = np.sum(self._eta)
 
             logging.info(
                 "comparing [{:d}/{}] - time: {:.2f}s - pairs_total: {}".format(
-                    self._i, i_max, eta_total, n_total))
+                    self._i, i_max, eta_total, n_total
+                )
+            )
 
         self._i += 1
 
@@ -762,16 +741,14 @@ class BaseCompare(object):
         feat_conc = []
 
         for feat, label in objs:
-
             # result is tuple of results
             if isinstance(feat, tuple):
                 if label is None:
                     label = [None] * len(feat)
                 if not is_list_like(label):
-                    label = (label, )
+                    label = (label,)
 
-                partial_result = self._union(zip(feat, label),
-                                             column_i=column_i)
+                partial_result = self._union(zip(feat, label), column_i=column_i)
                 feat_conc.append(partial_result)
                 column_i = column_i + partial_result.shape[1]
 
@@ -814,9 +791,11 @@ class BaseCompare(object):
 
             # other results are not (yet) supported
             else:
-                raise ValueError("expected numpy.ndarray or "
-                                 "pandas object to be returned, "
-                                 "got '{}'".format(feat.__class__.__name__))
+                raise ValueError(
+                    "expected numpy.ndarray or "
+                    "pandas object to be returned, "
+                    "got '{}'".format(feat.__class__.__name__)
+                )
 
         result = pandas.concat(feat_conc, axis=1, copy=False)
         if index is not None:
@@ -850,7 +829,8 @@ class BaseCompare(object):
         if not isinstance(pairs, pandas.MultiIndex):
             raise ValueError(
                 "expected pandas.MultiIndex with record pair indices "
-                "as first argument")
+                "as first argument"
+            )
 
         if not isinstance(x, pandas.DataFrame):
             raise ValueError("expected pandas.DataFrame as second argument")
@@ -861,10 +841,7 @@ class BaseCompare(object):
         if self.n_jobs == 1:
             results = self._compute(pairs, x, x_link)
         elif self.n_jobs > 1:
-            results = self._compute_parallel(pairs,
-                                             x,
-                                             x_link,
-                                             n_jobs=self.n_jobs)
+            results = self._compute_parallel(pairs, x, x_link, n_jobs=self.n_jobs)
         else:
             raise ValueError("number of jobs should be positive integer")
 
@@ -893,11 +870,12 @@ class BaseClassifier(metaclass=ABCMeta):
         pass
 
     def learn(self, *args, **kwargs):
-        """[DEPRECATED] Use 'fit_predict'.
-        """
+        """[DEPRECATED] Use 'fit_predict'."""
 
-        warnings.warn("learn is deprecated, {}.fit_predict "
-                      "instead".format(self.__class__.__name__))
+        warnings.warn(
+            "learn is deprecated, {}.fit_predict "
+            "instead".format(self.__class__.__name__)
+        )
         return self.fit_predict(*args, **kwargs)
 
     def _initialise_classifier(self, comparison_vectors):
@@ -934,8 +912,9 @@ class BaseClassifier(metaclass=ABCMeta):
         See detailed information here: link.
 
         """
-        logging.info("Classification - start training {}".format(
-            self.__class__.__name__))
+        logging.info(
+            "Classification - start training {}".format(self.__class__.__name__)
+        )
 
         self._initialise_classifier(comparison_vectors)
 
@@ -943,18 +922,16 @@ class BaseClassifier(metaclass=ABCMeta):
         start_time = time.time()
 
         if isinstance(match_index, (pandas.MultiIndex, pandas.Index)):
-
             try:
                 y = pandas.Series(0, index=comparison_vectors.index)
                 y.loc[match_index.intersection(comparison_vectors.index)] = 1
             except pandas.IndexError as err:
-
                 # The are no matches. So training is not possible.
-                if len(match_index.intersection(
-                        comparison_vectors.index)) == 0:
+                if len(match_index.intersection(comparison_vectors.index)) == 0:
                     raise LearningError(
-                        "both matches and non-matches needed in the" +
-                        "trainingsdata, only non-matches found")
+                        "both matches and non-matches needed in the"
+                        + "trainingsdata, only non-matches found"
+                    )
                 else:
                     raise err
 
@@ -963,8 +940,9 @@ class BaseClassifier(metaclass=ABCMeta):
         elif match_index is None:
             self._fit(comparison_vectors.values)
         else:
-            raise ValueError("'match_index' has incorrect type '{}'".format(
-                type(match_index)))
+            raise ValueError(
+                "'match_index' has incorrect type '{}'".format(type(match_index))
+            )
 
         # log timing
         logf_time = "Classification - training computation time: ~{:.2f}s"
@@ -1071,7 +1049,8 @@ class BaseClassifier(metaclass=ABCMeta):
                 "The argument 'return_type' is removed. "
                 "Default value is now 'series'.",
                 DeprecationWarning,
-                stacklevel=2)
+                stacklevel=2,
+            )
 
         logging.info("Classification - compute probabilities")
 
@@ -1079,30 +1058,29 @@ class BaseClassifier(metaclass=ABCMeta):
         return pandas.Series(prob_match, index=comparison_vectors.index)
 
     def _return_result(self, result, comparison_vectors=None):
-        """Return different formatted classification results.
-
-        """
-        return_type = cf.get_option('classification.return_type')
+        """Return different formatted classification results."""
+        return_type = cf.get_option("classification.return_type")
 
         if type(result) != np.ndarray:
             raise ValueError("numpy.ndarray expected.")
 
         # return the pandas.MultiIndex
-        if return_type == 'index':
+        if return_type == "index":
             return comparison_vectors.index[result.astype(bool)]
 
         # return a pandas.Series
-        elif return_type == 'series':
-            return pandas.Series(result,
-                                 index=comparison_vectors.index,
-                                 name='classification')
+        elif return_type == "series":
+            return pandas.Series(
+                result, index=comparison_vectors.index, name="classification"
+            )
 
         # return a numpy.ndarray
-        elif return_type == 'array':
+        elif return_type == "array":
             return result
 
         # return_type not known
         else:
             raise ValueError(
                 "return_type {} unknown. Choose 'index', 'series' or "
-                "'array'".format(return_type))
+                "'array'".format(return_type)
+            )
