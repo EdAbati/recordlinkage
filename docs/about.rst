@@ -6,9 +6,9 @@ Introduction
 ============
 
 The **Python Record Linkage Toolkit** is a library to link records in or
-between data sources. The toolkit provides most of the tools needed for 
-record linkage and deduplication. The package contains indexing methods, 
-functions to compare records and classifiers. The package is developed 
+between data sources. The toolkit provides most of the tools needed for
+record linkage and deduplication. The package contains indexing methods,
+functions to compare records and classifiers. The package is developed
 for research and the linking of small or medium sized files.
 
 The project is inspired by the `Freely Extensible Biomedical Record Linkage
@@ -34,7 +34,7 @@ Python Record Linkage Toolkit are:
 -  Several classifications algorithms, both supervised and unsupervised
    algorithms.
 -  Common record linkage evaluation tools
--  Several built-in datasets. 
+-  Several built-in datasets.
 
 
 What is record linkage?
@@ -58,17 +58,17 @@ workflow.
 
 .. seealso::
 
-    *Christen, Peter. 2012. Data matching: concepts and techniques for record 
-    linkage, entity resolution, and duplicate detection. Springer Science & 
+    *Christen, Peter. 2012. Data matching: concepts and techniques for record
+    linkage, entity resolution, and duplicate detection. Springer Science &
     Business Media.*
 
-    *Fellegi, Ivan P and Alan B Sunter. 1969. “A theory for record linkage.” 
+    *Fellegi, Ivan P and Alan B Sunter. 1969. “A theory for record linkage.”
     Journal of the American Statistical Association 64(328):1183–1210.*
 
-    *Dunn, Halbert L. 1946. “Record linkage.” American Journal of Public 
+    *Dunn, Halbert L. 1946. “Record linkage.” American Journal of Public
     Health and the Nations Health 36(12):1412–1416.*
 
-    *Herzog, Thomas N, Fritz J Scheuren and William E Winkler. 2007. Data 
+    *Herzog, Thomas N, Fritz J Scheuren and William E Winkler. 2007. Data
     quality and record linkage techniques. Vol. 1 Springer.*
 
 How to link records?
@@ -139,5 +139,3 @@ and an example of unsupervised learning (the well known ECM-algorithm):
 
     ecm = recordlinkage.BernoulliEMClassifier()
     ecm.fit_predict(compare_vectors)
-
-

@@ -22,7 +22,7 @@ The `RecordLinkage ANNOTATOR`_ software requires a structured annotation
 file. The required schema_ of the annotation file is open. The function
 :func:`recordlinkage.write_annotation_file` can be used to render and save an
 annotation file. The function can be used for both linking and deduplication
-purposes. 
+purposes.
 
 .. _schema: https://github.com/J535D165/recordlinkage-annotator/tree/master/schema
 
@@ -82,7 +82,7 @@ file for duplicate detection:
 Manual labeling
 ===============
 
-Go to `RecordLinkage ANNOTATOR`_ or start the server yourself. 
+Go to `RecordLinkage ANNOTATOR`_ or start the server yourself.
 
 Choose the annotation file on the landing screen or use the drag and drop
 functionality. A new screen shows the first record pair to label. Start
@@ -97,7 +97,7 @@ Export/read annotation file
 
 After labeling all record pairs, you can export the annotation file to a JSON
 file. Use the function :func:`recordlinkage.read_annotation_file` to read the
-results. 
+results.
 
 .. code:: python
 
@@ -106,14 +106,13 @@ results.
     result = rl.read_annotation_file('my_annotation.json')
     print(result.links)
 
-The function :func:`recordlinkage.read_annotation_file` reads the file and returns 
-an :class:`recordlinkage.annotation.AnnotationResult` object. This object contains 
+The function :func:`recordlinkage.read_annotation_file` reads the file and returns
+an :class:`recordlinkage.annotation.AnnotationResult` object. This object contains
 links and distinct attributes that return a :class:`pandas.MultiIndex` object.
 
 .. autofunction:: recordlinkage.read_annotation_file
 
 
-.. autoclass:: recordlinkage.annotation.AnnotationResult 
+.. autoclass:: recordlinkage.annotation.AnnotationResult
     :members:
     :inherited-members:
-

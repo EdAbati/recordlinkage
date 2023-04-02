@@ -27,7 +27,7 @@ record pairs agree on the given name **and** surname.
 .. code:: python
 
     from recordlinkage.index import Block
-    indexer = Block(left_on=['first_name', 'surname'], 
+    indexer = Block(left_on=['first_name', 'surname'],
                                  right_on=['name', 'surname'])
     pairs = indexer.index(dfA, dfB)
 
@@ -37,14 +37,14 @@ repeating the process with different blocking variables.
 .. code:: python
 
     indexer = recordlinkage.Index()
-    indexer.block(left_on=['first_name', 'surname'], 
+    indexer.block(left_on=['first_name', 'surname'],
                   right_on=['name', 'surname'])
-    indexer.block(left_on=['first_name', 'age'], 
+    indexer.block(left_on=['first_name', 'age'],
                   right_on=['name', 'age'])
     pairs = indexer.index(dfA, dfB)
 
 .. note:: Sorted Neighbourhood indexing supports, besides the sorted
-        neighbourhood, additional blocking on variables. 
+        neighbourhood, additional blocking on variables.
 
 Make record pairs
 ~~~~~~~~~~~~~~~~~
@@ -53,7 +53,7 @@ The structure of the Python Record Linkage Toolkit has a drawback for the
 performance. In the indexation step (the step in which record pairs are
 selected), only the index of both records is stored. The entire records
 are not stored. This results in less memory usage. The drawback is that the
-records need to be queried from the data. 
+records need to be queried from the data.
 
 
 Comparing
@@ -110,12 +110,10 @@ blocks. Consider full indexing:
     import numpy
 
     cl = recordlinkage.index.Full()
-    
+
     for dfB_subset in numpy.split(dfB):
-        
+
         # a subset of record pairs
         pairs_subset = cl.index(dfA, dfB_subset)
-        
+
         # Your analysis on pairs_subset here
-
-

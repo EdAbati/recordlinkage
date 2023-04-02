@@ -4,7 +4,6 @@ from recordlinkage.datasets import load_febrl1, load_febrl4
 
 
 def test_annotation_link(tmp_path):
-
     path = tmp_path / "febrl_annotation_link.json"
 
     # get febrl4 file
@@ -26,7 +25,6 @@ def test_annotation_link(tmp_path):
 
 
 def test_annotation_dedup(tmp_path):
-
     path = tmp_path / "febrl_annotation_dedup.json"
 
     # get febrl4 file

@@ -7,5 +7,3 @@ recursive-include recordlinkage/datasets/krebsregister *.csv
 
 global-exclude test_*.py
 global-exclude *_test.py
-
-

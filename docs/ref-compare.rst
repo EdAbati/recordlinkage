@@ -37,7 +37,7 @@ User-defined algorithms
 
 A user-defined algorithm can be defined based on
 :class:`recordlinkage.base.BaseCompareFeature`. The :class:`recordlinkage.base.BaseCompareFeature` class is an abstract base
-class that is used for compare algorithms. The classes 
+class that is used for compare algorithms. The classes
 
 - :class:`recordlinkage.compare.Exact`
 - :class:`recordlinkage.compare.String`
@@ -59,7 +59,7 @@ compare algorithm. A short example is given here:
             # algorithm that compares s1 and s2
 
             # return a pandas.Series
-            return ... 
+            return ...
 
     feat = CustomFeature()
     feat.compute(pairs, dfA, dfB)
@@ -73,7 +73,7 @@ class:
     .. automethod:: recordlinkage.base.BaseCompareFeature._compute
     .. automethod:: recordlinkage.base.BaseCompareFeature._compute_vectorized
 
-.. warning:: 
+.. warning::
 
     Do not change the order of the pairs in the MultiIndex.
 
@@ -140,17 +140,17 @@ first two numbers are identical, then the algorithm returns 0.5.
         def _compute_vectorized(self, s1, s2):
             """Compare zipcodes.
 
-            If the zipcodes in both records are identical, the similarity 
-            is 1. If the first two values agree and the last two don't, then 
+            If the zipcodes in both records are identical, the similarity
+            is 1. If the first two values agree and the last two don't, then
             the similarity is 0.5. Otherwise, the similarity is 0.
             """
-            
+
             # check if the zipcode are identical (return 1 or 0)
             sim = (s1 == s2).astype(float)
-            
+
             # check the first 2 numbers of the distinct comparisons
             sim[(sim == 0) & (s1.str[0:2] == s2.str[0:2])] = 0.5
-            
+
             return sim
 
     comparer = rl.Compare()
@@ -167,8 +167,8 @@ first two numbers are identical, then the algorithm returns 0.5.
     1.0     2854
     Name: sim_postcode, dtype: int64
 
-.. note:: 
-    
+.. note::
+
     See :class:`recordlinkage.base.BaseCompareFeature` for more
     details on how to subclass.
 
@@ -204,23 +204,23 @@ additional (keyword) arguments to the custom function.
         def _compute_vectorized(self, s1, s2):
             """Compare zipcodes.
 
-            If the zipcodes in both records are identical, the similarity 
-            is 0. If the first two values agree and the last two don't, then 
+            If the zipcodes in both records are identical, the similarity
+            is 0. If the first two values agree and the last two don't, then
             the similarity is 0.5. Otherwise, the similarity is 0.
             """
-            
+
             # check if the zipcode are identical (return 1 or 0)
             sim = (s1 == s2).astype(float)
-            
+
             # check the first 2 numbers of the distinct comparisons
             sim[(sim == 0) & (s1.str[0:2] == s2.str[0:2])] = self.partial_sim_value
-            
+
             return sim
 
     comparer = rl.Compare()
     comparer.extact('given_name', 'given_name', 'y_name')
     comparer.string('surname', 'surname', 'y_surname')
-    comparer.add(CompareZipCodes('postcode', 'postcode', 
+    comparer.add(CompareZipCodes('postcode', 'postcode',
                                  'partial_sim_value'=0.5, label='y_postcode'))
     comparer.compute(pairs, dfA, dfB)
 
@@ -254,12 +254,12 @@ is done with the single function given below.
         def _compute_vectorized(self, s1_1, s1_2, s2_1, s2_2):
             """Compare addresses.
 
-            Compare addresses. Compare address_1 of file A with 
+            Compare addresses. Compare address_1 of file A with
             address_1 and address_2 of file B. The same for address_2
-            of dataset 1. 
-            
+            of dataset 1.
+
             """
-            
+
             return ((s1_1 == s2_1) | (s1_2 == s2_2) | (s1_1 == s2_2) | (s1_2 == s2_1)).astype(float)
 
     comparer = rl.Compare()
@@ -269,8 +269,8 @@ is done with the single function given below.
     comparer.add(CompareAddress('address_2', 'address_2', label='sim_address_2'))
 
     # better
-    comparer.add(CompareAddress(('address_1', 'address_2'), 
-                                ('address_1', 'address_2'), 
+    comparer.add(CompareAddress(('address_1', 'address_2'),
+                                ('address_1', 'address_2'),
                                 label='sim_address'
     )
 

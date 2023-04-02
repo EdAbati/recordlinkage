@@ -18,5 +18,5 @@ from recordlinkage.network import *
 from recordlinkage.utils import index_split
 from recordlinkage.utils import split_index
 
-__version__ = get_versions()['version']
+__version__ = get_versions()["version"]
 del get_versions
