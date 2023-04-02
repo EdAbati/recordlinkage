@@ -11,7 +11,6 @@ from recordlinkage.algorithms.indexing import (
 )  # NOQA
 from recordlinkage.base import BaseIndexAlgorithm
 from recordlinkage.measures import full_index_size
-from recordlinkage.utils import DeprecationHelper
 from recordlinkage.utils import listify
 
 
