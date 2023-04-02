@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 """Base module for record linkage."""
 
-from __future__ import division
 
 import time
 import warnings
@@ -46,7 +44,7 @@ def chunk_pandas(frame_or_series, chunksize=None):
         yield frame_or_series[b : b + chunksize]
 
 
-class BaseIndex(object):
+class BaseIndex:
     """Base class for all index classes in Python Record Linkage Toolkit.
 
     Can be used for index passes.
@@ -54,7 +52,7 @@ class BaseIndex(object):
     """
 
     def __init__(self, algorithms=[]):
-        logging.info("indexing - initialize {} class".format(self.__class__.__name__))
+        logging.info(f"indexing - initialize {self.__class__.__name__} class")
 
         self.algorithms = []
         self.add(algorithms)
@@ -69,7 +67,7 @@ class BaseIndex(object):
 
     def __repr__(self):
         class_name = self.__class__.__name__
-        return "<{}>".format(class_name)
+        return f"<{class_name}>"
 
     def __str__(self):
         return repr(self)
@@ -165,7 +163,7 @@ class BaseIndex(object):
         return pairs
 
 
-class BaseIndexAlgorithm(object):
+class BaseIndexAlgorithm:
     """Base class for all index algorithms.
 
     BaseIndexAlgorithm is an abstract class for indexing algorithms.
@@ -211,14 +209,14 @@ class BaseIndexAlgorithm(object):
     description = None
 
     def __init__(self, verify_integrity=True, suffixes=("_1", "_2")):
-        super(BaseIndexAlgorithm, self).__init__()
+        super().__init__()
 
         self.suffixes = suffixes
         self.verify_integrity = verify_integrity
 
     def __repr__(self):
         class_name = self.__class__.__name__
-        return "<{}>".format(class_name)
+        return f"<{class_name}>"
 
     def __str__(self):
         return repr(self)
@@ -286,8 +284,8 @@ class BaseIndexAlgorithm(object):
     def _make_index_names(self, name1, name2):
         if pandas.notnull(name1) and pandas.notnull(name2) and (name1 == name2):
             return [
-                "{}{}".format(name1, self.suffixes[0]),
-                "{}{}".format(name1, self.suffixes[1]),
+                f"{name1}{self.suffixes[0]}",
+                f"{name1}{self.suffixes[1]}",
             ]
         else:
             return [name1, name2]
@@ -348,7 +346,7 @@ class BaseIndexAlgorithm(object):
 BaseIndexator = DeprecationHelper(BaseIndexAlgorithm)
 
 
-class BaseCompareFeature(object):
+class BaseCompareFeature:
     """Base abstract class for compare feature engineering.
 
     Parameters
@@ -381,7 +379,7 @@ class BaseCompareFeature(object):
         self._f_compare_vectorized = None
 
     def _repr(self):
-        return "<{} {!r}>".format(self.__class__.__name__, self.label)
+        return f"<{self.__class__.__name__} {self.label!r}>"
 
     def __repr__(self):
         return self._repr()
@@ -490,7 +488,7 @@ class BaseCompareFeature(object):
         return results
 
 
-class BaseCompare(object):
+class BaseCompare:
     """Base class for all comparing classes in Python Record Linkage Toolkit.
 
     Parameters
@@ -515,7 +513,7 @@ class BaseCompare(object):
     """
 
     def __init__(self, features=[], n_jobs=1, indexing_type="label", **kwargs):
-        logging.info("comparing - initialize {} class".format(self.__class__.__name__))
+        logging.info(f"comparing - initialize {self.__class__.__name__} class")
 
         self.features = []
         self.add(features)
@@ -548,7 +546,7 @@ class BaseCompare(object):
 
     def __repr__(self):
         class_name = self.__class__.__name__
-        return "<{}>".format(class_name)
+        return f"<{class_name}>"
 
     def __str__(self):
         return repr(self)
@@ -912,9 +910,7 @@ class BaseClassifier(metaclass=ABCMeta):
         See detailed information here: link.
 
         """
-        logging.info(
-            "Classification - start training {}".format(self.__class__.__name__)
-        )
+        logging.info(f"Classification - start training {self.__class__.__name__}")
 
         self._initialise_classifier(comparison_vectors)
 
@@ -940,9 +936,7 @@ class BaseClassifier(metaclass=ABCMeta):
         elif match_index is None:
             self._fit(comparison_vectors.values)
         else:
-            raise ValueError(
-                "'match_index' has incorrect type '{}'".format(type(match_index))
-            )
+            raise ValueError(f"'match_index' has incorrect type '{type(match_index)}'")
 
         # log timing
         logf_time = "Classification - training computation time: ~{:.2f}s"

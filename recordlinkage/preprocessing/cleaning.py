@@ -92,7 +92,7 @@ def clean(
     elif strip_accents == "unicode":
         strip_accents_fn = strip_accents_unicode
     else:
-        raise ValueError("Invalid value for 'strip_accents': {}".format(strip_accents))
+        raise ValueError(f"Invalid value for 'strip_accents': {strip_accents}")
 
     # Remove accents etc
     if strip_accents:

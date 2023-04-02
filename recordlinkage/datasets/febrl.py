@@ -207,8 +207,8 @@ def load_febrl4(return_links=False):
     if return_links:
         links = pandas.MultiIndex.from_arrays(
             [
-                ["rec-{}-org".format(i) for i in range(0, 5000)],
-                ["rec-{}-dup-0".format(i) for i in range(0, 5000)],
+                [f"rec-{i}-org" for i in range(0, 5000)],
+                [f"rec-{i}-dup-0" for i in range(0, 5000)],
             ]
         )
         return df_a, df_b, links

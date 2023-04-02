@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import math
 
@@ -36,7 +35,7 @@ CLASSIFIERS = SUPERVISED_CLASSIFIERS + UNSUPERVISED_CLASSIFIERS
 N = 10000
 
 
-class TestClassifyData(object):
+class TestClassifyData:
     @classmethod
     def setup_class(cls):
         cls.render_bin_test_data()
@@ -579,10 +578,10 @@ class TestFellegiSunter(TestClassifyData):
         else:
             cl.fit(X_train, true_links)
 
-        assert set([*cl.m_probs]) == set(list(X_train))
-        assert set([*cl.u_probs]) == set(list(X_train))
-        assert set([*cl.log_m_probs]) == set(list(X_train))
-        assert set([*cl.log_m_probs]) == set(list(X_train))
+        assert {*cl.m_probs} == set(list(X_train))
+        assert {*cl.u_probs} == set(list(X_train))
+        assert {*cl.log_m_probs} == set(list(X_train))
+        assert {*cl.log_m_probs} == set(list(X_train))
 
     # @pytest.mark.parametrize('classifier', [
     #     rl.NaiveBayesClassifier,

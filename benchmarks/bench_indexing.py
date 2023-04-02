@@ -1,10 +1,8 @@
-from __future__ import absolute_import, division, print_function
-
 import recordlinkage as rl
 from recordlinkage.datasets import load_febrl1, load_febrl4
 
 
-class PairsRecordLinkage(object):
+class PairsRecordLinkage:
     timeout = 30 * 60
 
     def setup(self):
@@ -40,7 +38,7 @@ class PairsRecordLinkage(object):
         c_pairs.index(self.A, self.B)
 
 
-class PairsDeduplication(object):
+class PairsDeduplication:
     timeout = 30 * 60
 
     def setup(self):

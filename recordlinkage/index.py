@@ -39,7 +39,7 @@ class Full(BaseIndexAlgorithm):
     """
 
     def __init__(self, **kwargs):
-        super(Full, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         logging.warning(
             "indexing - performance warning "
@@ -89,7 +89,7 @@ class Block(BaseIndexAlgorithm):
 
     def __init__(self, left_on=None, right_on=None, **kwargs):
         on = kwargs.pop("on", None)
-        super(Block, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         # variables to block on
         self.left_on = left_on
@@ -108,7 +108,7 @@ class Block(BaseIndexAlgorithm):
         class_name = self.__class__.__name__
         left_on, right_on = self._get_left_and_right_on()
 
-        return "<{} left_on={!r}, right_on={!r}>".format(class_name, left_on, right_on)
+        return f"<{class_name} left_on={left_on!r}, right_on={right_on!r}>"
 
     def _get_left_and_right_on(self):
         if self.right_on is None:
@@ -212,10 +212,10 @@ class SortedNeighbourhood(BaseIndexAlgorithm):
         block_on=[],
         block_left_on=[],
         block_right_on=[],
-        **kwargs
+        **kwargs,
     ):
         on = kwargs.pop("on", None)
-        super(SortedNeighbourhood, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         # variables to block on
         self.left_on = left_on
@@ -239,7 +239,7 @@ class SortedNeighbourhood(BaseIndexAlgorithm):
         class_name = self.__class__.__name__
         left_on, right_on = self._get_left_and_right_on()
 
-        return "<{} left_on={!r}, right_on={!r}>".format(class_name, left_on, right_on)
+        return f"<{class_name} left_on={left_on!r}, right_on={right_on!r}>"
 
     def _get_left_and_right_on(self):
         if self.right_on is None:
@@ -364,7 +364,7 @@ class Random(BaseIndexAlgorithm):
     """
 
     def __init__(self, n, replace=True, random_state=None, **kwargs):
-        super(Random, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         self.n = n
         self.replace = replace
@@ -373,7 +373,7 @@ class Random(BaseIndexAlgorithm):
     def __repr__(self):
         class_name = self.__class__.__name__
 
-        return "<{} n={!r}, replace={!r}>".format(class_name, self.n, self.replace)
+        return f"<{class_name} n={self.n!r}, replace={self.replace!r}>"
 
     def _link_index(self, df_a, df_b):
         shape = (len(df_a), len(df_b))

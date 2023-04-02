@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 
 This module implements the Naive Bayes algorithm in both a supervised and
@@ -618,7 +617,7 @@ class ECM(BaseNB):
                 if class_log_prior_close and feature_log_prob_close:
                     stop_iteration = True
                     logging.info(
-                        "ECM algorithm converged after {} iterations".format(iteration)
+                        f"ECM algorithm converged after {iteration} iterations"
                     )
 
             if np.all(np.isnan(feature_log_prob_)):

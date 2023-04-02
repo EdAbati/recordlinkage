@@ -30,7 +30,7 @@ def get_test_algorithms():
     ]
 
 
-class TestData(object):
+class TestData:
     """Unittest object to setup test data."""
 
     @classmethod
@@ -114,7 +114,7 @@ class TestIndexAlgorithmApi(TestData):
         index_repr = repr(index_class)
         assert index_str == index_repr
 
-        start_str = "<{}".format(index_class.__class__.__name__)
+        start_str = f"<{index_class.__class__.__name__}"
         assert index_str.startswith(start_str)
 
     @pytest.mark.parametrize("index_class", get_test_algorithms())
@@ -124,7 +124,7 @@ class TestIndexAlgorithmApi(TestData):
         # The following should work
         index_class.index(self.a)
         index_class.index(self.a, self.b)
-        index_class.index((self.a))
+        index_class.index(self.a)
         index_class.index([self.a])
         index_class.index((self.a, self.b))
         index_class.index([self.a, self.b])
@@ -195,7 +195,7 @@ class TestIndexAlgorithmApi(TestData):
             index_A = pd.Index(self.a.index).rename(name)
             df_A = pd.DataFrame(self.a, index=index_A)
 
-            pairs = index_class.index((df_A))
+            pairs = index_class.index(df_A)
 
             assert pairs.names == expected[i]
             assert df_A.index.name == name
@@ -532,7 +532,7 @@ class TestSortedNeighbourhoodIndexing(TestData):
         # window = 7 # using paramereized tests instead
 
         index_class = SortedNeighbourhood("var_arange", window=window)
-        pairs = index_class.index((self.a))
+        pairs = index_class.index(self.a)
 
         # the expected number of pairs
         window_d = (window - 1) / 2

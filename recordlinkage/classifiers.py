@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import numpy
 import pandas
 from sklearn import cluster
@@ -12,7 +10,7 @@ from recordlinkage.algorithms.nb_sklearn import NaiveBayes
 from recordlinkage.base import BaseClassifier as Classifier
 
 
-class FellegiSunter(object):
+class FellegiSunter:
     """Fellegi and Sunter (1969) framework.
 
     Meta class for probabilistic classification algorithms. The Fellegi and
@@ -245,7 +243,7 @@ class KMeansClassifier(SKLearnAdapter, Classifier):
     def __init__(
         self, match_cluster_center=None, nonmatch_cluster_center=None, **kwargs
     ):
-        super(KMeansClassifier, self).__init__()
+        super().__init__()
 
         # initialize the classifier
         self.kernel = cluster.KMeans(n_clusters=2, n_init=1, **kwargs)
@@ -346,7 +344,7 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
     """
 
     def __init__(self, coefficients=None, intercept=None, **kwargs):
-        super(LogisticRegressionClassifier, self).__init__()
+        super().__init__()
 
         self.kernel = linear_model.LogisticRegression(**kwargs)
 
@@ -466,7 +464,7 @@ class NaiveBayesClassifier(FellegiSunter, SKLearnAdapter, Classifier):
     """
 
     def __init__(self, binarize=None, alpha=1e-4, use_col_names=True, **kwargs):
-        super(NaiveBayesClassifier, self).__init__(use_col_names=use_col_names)
+        super().__init__(use_col_names=use_col_names)
 
         self.kernel = NaiveBayes(alpha=alpha, binarize=binarize, **kwargs)
 
@@ -508,7 +506,7 @@ class SVMClassifier(SKLearnAdapter, Classifier):
     """
 
     def __init__(self, *args, **kwargs):
-        super(SVMClassifier, self).__init__()
+        super().__init__()
 
         self.kernel = svm.LinearSVC(*args, **kwargs)
 
@@ -572,7 +570,7 @@ class ECMClassifier(FellegiSunter, SKLearnAdapter, Classifier):
         *args,
         **kwargs
     ):
-        super(ECMClassifier, self).__init__(use_col_names=use_col_names)
+        super().__init__(use_col_names=use_col_names)
 
         self.kernel = ECM(
             init=init, binarize=binarize, max_iter=max_iter, atol=atol, *args, **kwargs

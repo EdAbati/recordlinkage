@@ -14,7 +14,6 @@ coefficients = [1.5, 1.5, 8.0, 6.0, 2.5, 6.5, 5.0]
 
 """
 
-from __future__ import print_function
 
 import recordlinkage as rl
 from recordlinkage.index import Block

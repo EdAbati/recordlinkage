@@ -1,10 +1,8 @@
-from __future__ import absolute_import, division, print_function
-
 import recordlinkage as rl
 from recordlinkage.datasets import load_febrl1, load_febrl4
 
 
-class CompareRecordLinkage(object):
+class CompareRecordLinkage:
     timeout = 30 * 60
 
     def setup(self):
@@ -58,7 +56,7 @@ class CompareRecordLinkage(object):
         c_compare.string("address_1", "address_1", method="levenshtein", threshold=0.85)
 
 
-class CompareDeduplication(object):
+class CompareDeduplication:
     timeout = 30 * 60
 
     def setup(self):
@@ -112,7 +110,7 @@ class CompareDeduplication(object):
         c_compare.string("address_1", "address_1", method="levenshtein", threshold=0.85)
 
 
-class CompareAlgorithms(object):
+class CompareAlgorithms:
     timeout = 30 * 60
 
     def setup(self):

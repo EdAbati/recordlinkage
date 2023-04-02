@@ -59,7 +59,7 @@ class RandomContinuous(BaseCompareFeature):
     description = "Feature for continuous random values."
 
     def __init__(self, a=0.0, b=1.0, label=None):
-        super(RandomContinuous, self).__init__([], [], label=label)
+        super().__init__([], [], label=label)
 
         self.a = a
         self.b = b
@@ -123,7 +123,7 @@ class RandomDiscrete(BaseCompareFeature):
     description = "Feature for discrete random values."
 
     def __init__(self, a=[0, 1], dtype=np.int64, label=None):
-        super(RandomDiscrete, self).__init__([], [], label=label)
+        super().__init__([], [], label=label)
 
         self.a = a
         self.dtype = dtype

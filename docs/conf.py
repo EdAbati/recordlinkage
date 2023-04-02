@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Record Linkage Toolkit documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep 16 11:51:37 2015.
@@ -61,7 +60,7 @@ master_doc = "index"
 # General information about the project.
 project = "Python Record Linkage Toolkit"
 now = datetime.datetime.now()
-copyright = "2016-{}, Jonathan de Bruin".format(now.year)
+copyright = f"2016-{now.year}, Jonathan de Bruin"
 author = "Jonathan de Bruin"
 
 # The version info for the project you're documenting, acts as replacement for

@@ -113,7 +113,7 @@ def load_krebsregister(
 
     # If the data is not found, download it.
     for i in range(1, 11):
-        filepath = Path(get_data_home(), "krebsregister", "block_{}.zip".format(i))
+        filepath = Path(get_data_home(), "krebsregister", f"block_{i}.zip")
 
         if not filepath.is_file():
             _download_krebsregister()
@@ -144,7 +144,7 @@ def _download_krebsregister():
     folder = Path(get_data_home(), "krebsregister")
 
     try:
-        print("Downloading data to {}.".format(folder))
+        print(f"Downloading data to {folder}.")
         r = urlopen(zip_file_url).read()
 
         # unzip the content and put it in the krebsregister folder
@@ -164,7 +164,7 @@ def _krebsregister_block(block):
             "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10] or list of integers."
         )
 
-    fp_i = Path(get_data_home(), "krebsregister", "block_{}.zip".format(block))
+    fp_i = Path(get_data_home(), "krebsregister", f"block_{block}.zip")
 
     data_block = pandas.read_csv(
         fp_i, index_col=["id_1", "id_2"], na_values="?", compression="zip"

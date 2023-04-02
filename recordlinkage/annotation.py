@@ -22,7 +22,7 @@ def write_annotation_file(
     dataset_a_name=None,
     dataset_b_name=None,
     *args,
-    **kwargs
+    **kwargs,
 ):
     """Render and export annotation file.
 
@@ -83,7 +83,7 @@ def read_annotation_file(fp):
     return AnnotationResult.from_file(fp)
 
 
-class AnnotationWrapper(object):
+class AnnotationWrapper:
     """Annotation wrapper to render annotation file."""
 
     def __init__(
@@ -175,7 +175,7 @@ class AnnotationWrapper(object):
             json.dump(self._create_annotation(), f, indent=2)
 
 
-class AnnotationResult(object):
+class AnnotationResult:
     """Result of (manual) annotation.
 
     Parameters
@@ -244,7 +244,7 @@ class AnnotationResult(object):
         return self._get_annotation_value(None)
 
     def __repr__(self):
-        return "<Annotator pairs, version={version}>".format(version=self.version)
+        return f"<Annotator pairs, version={self.version}>"
 
     @classmethod
     def from_dict(cls, d):
@@ -274,7 +274,7 @@ class AnnotationResult(object):
         -------
         AnnotationResult
             An AnnotationResult object."""
-        with open(str(fp), "r") as f:
+        with open(str(fp)) as f:
             content = json.load(f)
 
         return cls.from_dict(content)

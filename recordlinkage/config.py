@@ -147,7 +147,7 @@ def _get_single_key(pat, silent):
     if len(keys) == 0:
         if not silent:
             _warn_if_deprecated(pat)
-        raise OptionError("No such keys(s): {pat!r}".format(pat=pat))
+        raise OptionError(f"No such keys(s): {pat!r}")
     if len(keys) > 1:
         raise OptionError("Pattern matched multiple keys")
     key = keys[0]
@@ -238,7 +238,7 @@ def get_default_val(pat):
     return _get_registered_option(key).defval
 
 
-class DictWrapper(object):
+class DictWrapper:
     """provide attribute-style access to a nested dict"""
 
     def __init__(self, d, prefix=""):
@@ -281,7 +281,7 @@ class DictWrapper(object):
 # of options, and option descriptions.
 
 
-class CallableDynamicDoc(object):
+class CallableDynamicDoc:
     def __init__(self, func, doc_tmpl):
         self.__doc_tmpl__ = doc_tmpl
         self.__func__ = func
@@ -417,7 +417,7 @@ options = DictWrapper(_global_config)
 # Functions for use by pandas developers, in addition to User - api
 
 
-class option_context(object):
+class option_context:
     """
     Context manager to temporarily set options in the `with` statement context.
 
@@ -499,9 +499,9 @@ def register_option(key, defval, doc="", validator=None, cb=None):
 
     for k in path:
         if not bool(re.match("^" + tokenize.Name + "$", k)):
-            raise ValueError("{k} is not a valid identifier".format(k=k))
+            raise ValueError(f"{k} is not a valid identifier")
         if keyword.iskeyword(k):
-            raise ValueError("{k} is a python keyword".format(k=k))
+            raise ValueError(f"{k} is a python keyword")
 
     cursor = _global_config
     msg = "Path prefix to option '{option}' is already an option"
@@ -664,11 +664,11 @@ def _warn_if_deprecated(key):
             print(d.msg)
             warnings.warn(d.msg, DeprecationWarning)
         else:
-            msg = "'{key}' is deprecated".format(key=key)
+            msg = f"'{key}' is deprecated"
             if d.removal_ver:
-                msg += " and will be removed in {version}".format(version=d.removal_ver)
+                msg += f" and will be removed in {d.removal_ver}"
             if d.rkey:
-                msg += ", please use '{rkey}' instead.".format(rkey=d.rkey)
+                msg += f", please use '{d.rkey}' instead."
             else:
                 msg += ", please refrain from using it."
 
@@ -775,7 +775,7 @@ def config_prefix(prefix):
 
     def wrap(func):
         def inner(key, *args, **kwds):
-            pkey = "{prefix}.{key}".format(prefix=prefix, key=key)
+            pkey = f"{prefix}.{key}"
             return func(pkey, *args, **kwds)
 
         return inner
@@ -835,7 +835,7 @@ def is_instance_factory(_type):
         _type = tuple(_type)
         type_repr = "|".join(map(lambda x: x.__name__, _type))
     else:
-        type_repr = "'{typ}'".format(typ=_type.__name__)
+        type_repr = f"'{_type.__name__}'"
 
     def inner(x):
         if not isinstance(x, _type):

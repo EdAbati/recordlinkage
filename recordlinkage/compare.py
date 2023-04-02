@@ -57,7 +57,7 @@ class Exact(BaseCompareFeature):
         missing_value=0,
         label=None,
     ):
-        super(Exact, self).__init__(left_on, right_on, label=label)
+        super().__init__(left_on, right_on, label=label)
 
         self.agree_value = agree_value
         self.disagree_value = disagree_value
@@ -119,7 +119,7 @@ class String(BaseCompareFeature):
         missing_value=0.0,
         label=None,
     ):
-        super(String, self).__init__(left_on, right_on, label=label)
+        super().__init__(left_on, right_on, label=label)
 
         self.method = method
         self.threshold = threshold
@@ -143,7 +143,7 @@ class String(BaseCompareFeature):
         elif self.method in ["longest_common_substring", "lcs"]:
             str_sim_alg = longest_common_substring_similarity
         else:
-            raise ValueError("The algorithm '{}' is not known.".format(self.method))
+            raise ValueError(f"The algorithm '{self.method}' is not known.")
 
         c = str_sim_alg(s_left, s_right)
 
@@ -215,7 +215,7 @@ class Numeric(BaseCompareFeature):
         missing_value=0.0,
         label=None,
     ):
-        super(Numeric, self).__init__(left_on, right_on, label=label)
+        super().__init__(left_on, right_on, label=label)
 
         self.method = method
         self.offset = offset
@@ -237,7 +237,7 @@ class Numeric(BaseCompareFeature):
         elif self.method in ["gauss", "gaussian"]:
             num_sim_alg = partial(_gauss_sim, d, self.scale, self.offset, self.origin)
         else:
-            raise ValueError("The algorithm '{}' is not known.".format(self.method))
+            raise ValueError(f"The algorithm '{self.method}' is not known.")
 
         c = num_sim_alg()
         c = _fillna(c, self.missing_value)
@@ -296,7 +296,7 @@ class Geographic(BaseCompareFeature):
         missing_value=0.0,
         label=None,
     ):
-        super(Geographic, self).__init__(
+        super().__init__(
             (left_on_lat, left_on_lng), (right_on_lat, right_on_lng), label=label
         )
 
@@ -320,7 +320,7 @@ class Geographic(BaseCompareFeature):
         elif self.method in ["gauss", "gaussian"]:
             num_sim_alg = partial(_gauss_sim, d, self.scale, self.offset, self.origin)
         else:
-            raise ValueError("The algorithm '{}' is not known.".format(self.method))
+            raise ValueError(f"The algorithm '{self.method}' is not known.")
 
         c = num_sim_alg()
         c = _fillna(c, self.missing_value)
@@ -362,7 +362,7 @@ class Date(BaseCompareFeature):
         missing_value=0.0,
         label=None,
     ):
-        super(Date, self).__init__(left_on, right_on, label=label)
+        super().__init__(left_on, right_on, label=label)
 
         self.missing_value = missing_value
         self.swap_months = swap_months
@@ -438,7 +438,7 @@ class Variable(BaseCompareFeature):
     description = "Add a variable of the dataframe to the features."
 
     def __init__(self, left_on=None, right_on=None, missing_value=0.0, label=None):
-        super(Variable, self).__init__(left_on, right_on, label=label)
+        super().__init__(left_on, right_on, label=label)
 
         self.missing_value = missing_value
 
@@ -475,9 +475,7 @@ class VariableA(Variable):
     description = "Add a variable of the left dataframe to the features."
 
     def __init__(self, on=None, missing_value=0.0, label=None):
-        super(VariableA, self).__init__(
-            on, None, missing_value=missing_value, label=label
-        )
+        super().__init__(on, None, missing_value=missing_value, label=label)
 
 
 class VariableB(Variable):
@@ -499,9 +497,7 @@ class VariableB(Variable):
     description = "Add a variable of the right dataframe to the features."
 
     def __init__(self, on=None, missing_value=0.0, label=None):
-        super(VariableB, self).__init__(
-            None, on, missing_value=missing_value, label=label
-        )
+        super().__init__(None, on, missing_value=missing_value, label=label)
 
 
 class Frequency(BaseCompareFeature):
@@ -527,7 +523,7 @@ class Frequency(BaseCompareFeature):
     def __init__(
         self, left_on=None, right_on=None, normalise=True, missing_value=0.0, label=None
     ):
-        super(Frequency, self).__init__(left_on, right_on, label=label)
+        super().__init__(left_on, right_on, label=label)
 
         self.normalise = normalise
         self.missing_value = missing_value
@@ -581,7 +577,7 @@ class FrequencyA(Frequency):
     description = "Compute the frequency."
 
     def __init__(self, on=None, normalise=True, missing_value=0.0, label=None):
-        super(FrequencyA, self).__init__(
+        super().__init__(
             on, None, normalise=normalise, missing_value=missing_value, label=label
         )
 
@@ -605,6 +601,6 @@ class FrequencyB(Frequency):
     description = "Compute the frequency."
 
     def __init__(self, on=None, normalise=True, missing_value=0.0, label=None):
-        super(FrequencyB, self).__init__(
+        super().__init__(
             None, on, normalise=normalise, missing_value=missing_value, label=label
         )

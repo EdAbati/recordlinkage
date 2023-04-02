@@ -7,7 +7,6 @@ relatively well compared to supervised methods.
 
 """
 
-from __future__ import print_function
 
 import numpy as np
 

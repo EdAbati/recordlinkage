@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 from os import environ
 from pathlib import Path
@@ -84,9 +83,7 @@ def test_krebs_dataset_download():
     krebs_data, krebs_matches = load_krebsregister()
 
     for i in range(1, 11):
-        assert Path(
-            get_data_home(), "krebsregister", "block_{}.zip".format(i)
-        ).is_file()
+        assert Path(get_data_home(), "krebsregister", f"block_{i}.zip").is_file()
 
     # count the number of recordss
     assert type(krebs_data), pandas.DataFrame
@@ -103,7 +100,7 @@ def test_krebs_dataset_environ(tmpdir):
     krebs_data, krebs_matches = load_krebsregister()
 
     for i in range(1, 11):
-        assert Path(path, "krebsregister", "block_{}.zip".format(i)).is_file()
+        assert Path(path, "krebsregister", f"block_{i}.zip").is_file()
 
 
 @pytest.mark.skip(reason="Causes undeterministic problems")

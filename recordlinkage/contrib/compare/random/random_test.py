@@ -32,7 +32,7 @@ from recordlinkage.contrib.compare import RandomDiscrete
 from recordlinkage.index import Full
 
 
-class TestRandomContinuous(object):
+class TestRandomContinuous:
     def test_random_cont_standalone(self):
         arr1 = [1, 2, 3, 4, 5]
         arr2 = [1, 2, 3, 4, 5]
@@ -61,7 +61,7 @@ class TestRandomContinuous(object):
         assert cv["random"].max() <= 1.0
 
 
-class TestRandomDiscrete(object):
+class TestRandomDiscrete:
     def test_random_desc_standalone(self):
         arr1 = [1, 2, 3, 4, 5]
         arr2 = [1, 2, 3, 4, 5]

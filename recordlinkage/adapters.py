@@ -3,7 +3,7 @@
 __all__ = ["SKLearnAdapter", "KerasAdapter"]
 
 
-class SKLearnAdapter(object):
+class SKLearnAdapter:
     """SciKit-learn adapter for record pair classification.
 
     SciKit-learn adapter for record pair classification with SciKit-learn
@@ -75,7 +75,7 @@ class SKLearnAdapter(object):
         return probs[:, match_class_position]
 
 
-class KerasAdapter(object):
+class KerasAdapter:
     """Keras adapter for record pair classification.
 
     Keras adapter for record pair classification with Keras models.

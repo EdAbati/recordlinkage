@@ -75,11 +75,9 @@ class NeighbourhoodBlock(Block):
         max_nulls=0,
         max_non_matches=0,
         windows=1,
-        **kwargs
+        **kwargs,
     ):
-        super(NeighbourhoodBlock, self).__init__(
-            left_on=left_on, right_on=right_on, **kwargs
-        )
+        super().__init__(left_on=left_on, right_on=right_on, **kwargs)
         self.max_nulls = max_nulls
         self.max_non_matches = max_non_matches
         self.windows = listify(windows)
@@ -87,10 +85,8 @@ class NeighbourhoodBlock(Block):
     def __repr__(self):
         cls = type(self)
         attrs = ["left_on", "right_on", "max_nulls", "max_non_matches", "windows"]
-        attrs_repr = ", ".join(
-            "{}={}".format(attr, repr(getattr(self, attr))) for attr in attrs
-        )
-        return "<{cls.__name__} {attrs_repr}>".format(**locals())
+        attrs_repr = ", ".join(f"{attr}={repr(getattr(self, attr))}" for attr in attrs)
+        return f"<{cls.__name__} {attrs_repr}>"
 
     _coarsening_factor = 2
 
@@ -164,11 +160,11 @@ class NeighbourhoodBlock(Block):
             for side, values in [("left", left_keys), ("right", right_keys)]:
                 joined = joined.join(
                     pandas.DataFrame(
-                        {"{side}_ndx".format(**locals()): numpy.arange(len(values))},
+                        {f"{side}_ndx": numpy.arange(len(values))},
                         index=values,
                     ),
                     how="inner",
-                    on="{side}_key".format(**locals()),
+                    on=f"{side}_key",
                 )
             return joined[["left_ndx", "right_ndx"]].values
 

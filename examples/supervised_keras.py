@@ -1,6 +1,5 @@
 """Example: Supervised learning with Neural Networks."""
 
-from __future__ import print_function
 
 import numpy as np
 import tensorflow as tf
@@ -37,7 +36,7 @@ class NNClassifier(KerasAdapter, BaseClassifier):
     """Neural network classifier."""
 
     def __init__(self, *args, **kwargs):
-        super(NNClassifier, self).__init__()
+        super().__init__()
 
         model = tf.keras.Sequential()
         model.add(layers.Dense(16, input_dim=8, activation="relu"))

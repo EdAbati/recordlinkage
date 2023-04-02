@@ -18,7 +18,7 @@ class LearningError(Exception):
     """Learning error"""
 
 
-class DeprecationHelper(object):
+class DeprecationHelper:
     """Deprecation helper for classes and functions.
 
     Based on https://stackoverflow.com/a/9008509/8727928

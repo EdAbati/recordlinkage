@@ -4,7 +4,7 @@ from recordlinkage.types import is_pandas_2d_multiindex
 from recordlinkage.types import is_pandas_multiindex
 
 
-class OneToOneLinking(object):
+class OneToOneLinking:
     """[EXPERIMENTAL] One-to-one linking
 
     A record from dataset A can match at most one record from dataset
@@ -27,7 +27,7 @@ class OneToOneLinking(object):
     """
 
     def __init__(self, method="greedy"):
-        super(OneToOneLinking, self).__init__()
+        super().__init__()
 
         self.method = method
 
@@ -61,7 +61,7 @@ class OneToOneLinking(object):
         if self.method == "greedy":
             return self._compute_greedy(links)
         else:
-            raise ValueError("unknown matching method {}".format(self.method))
+            raise ValueError(f"unknown matching method {self.method}")
 
     def compute(self, links):
         """Compute the one-to-one linking.
@@ -122,7 +122,7 @@ class OneToManyLinking(OneToOneLinking):
     """
 
     def __init__(self, level=0, method="greedy"):
-        super(OneToManyLinking, self).__init__(method=method)
+        super().__init__(method=method)
 
         self.level = level
 
@@ -148,7 +148,7 @@ class OneToManyLinking(OneToOneLinking):
         return self._compute(links)
 
 
-class ConnectedComponents(object):
+class ConnectedComponents:
     """[EXPERIMENTAL] Connected record pairs
 
     This class identifies connected record pairs. Connected components
@@ -161,7 +161,7 @@ class ConnectedComponents(object):
     """
 
     def __init__(self):
-        super(ConnectedComponents, self).__init__()
+        super().__init__()
 
     def compute(self, links):
         """Return the connected components.

@@ -86,7 +86,7 @@ def phonetic(s, method, concat=True, encoding="utf-8", decode_error="strict"):
             phonetic_callback = alg["callback"]
             break
     else:
-        raise ValueError("The algorithm '{}' is not known.".format(method))
+        raise ValueError(f"The algorithm '{method}' is not known.")
 
     return s.str.upper().apply(
         lambda x: phonetic_callback(x) if pandas.notnull(x) else np.nan

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import os
 import pickle
@@ -86,7 +85,7 @@ AGES = [23, 40, 70, 45, 23, 57, 38, nan, 45, 46]
 # nosetests tests/test_compare.py
 
 
-class TestData(object):
+class TestData:
     @classmethod
     def setup_class(cls):
         N_A = 100
@@ -141,7 +140,7 @@ class TestCompareApi(TestData):
         c_repr = repr(comp)
         assert c_str == c_repr
 
-        start_str = "<{}".format(comp.__class__.__name__)
+        start_str = f"<{comp.__class__.__name__}"
         assert c_str.startswith(start_str)
 
     def test_instance_linking(self):
@@ -1341,7 +1340,7 @@ class TestCompareStrings(TestData):
         pytest.raises(ValueError, comp.compute, ix, A, B)
 
 
-class TestCompareFreq(object):
+class TestCompareFreq:
     def test_freq(self):
         # data
         array_repeated = np.repeat(np.arange(10), 10)
@@ -1425,7 +1424,7 @@ class TestCompareFreq(object):
         pdt.assert_frame_equal(result, expected)
 
 
-class TestCompareVariable(object):
+class TestCompareVariable:
     def test_variable(self):
         # data
         arrayA = np.random.random((100,))

@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
-from __future__ import division
 
 import recordlinkage as rl
 
@@ -19,7 +17,7 @@ LINKS_PRED = pandas.MultiIndex.from_tuples(
 )
 
 
-class TestMeasures(object):
+class TestMeasures:
     def test_confusion_matrix(self):
         result_len = rl.confusion_matrix(LINKS_TRUE, LINKS_PRED, len(FULL_INDEX))
         result_full_index = rl.confusion_matrix(LINKS_TRUE, LINKS_PRED, FULL_INDEX)
@@ -84,7 +82,7 @@ class TestMeasures(object):
 
         assert rl.full_index_size(df_a) == 45
         assert rl.full_index_size(len(df_a)) == 45
-        assert rl.full_index_size((len(df_a))) == 45
+        assert rl.full_index_size(len(df_a)) == 45
         assert rl.full_index_size([len(df_a)]) == 45
 
         assert rl.full_index_size(df_a, df_b) == 100

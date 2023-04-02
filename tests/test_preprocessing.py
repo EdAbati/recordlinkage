@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import numpy as np
 import pandas as pd
@@ -13,7 +12,7 @@ from recordlinkage.preprocessing import phonetic_algorithms
 from recordlinkage.preprocessing import value_occurence
 
 
-class TestCleaningStandardise(object):
+class TestCleaningStandardise:
     def test_clean(self):
         values = pd.Series(
             [
@@ -187,7 +186,7 @@ class TestCleaningStandardise(object):
         pdt.assert_series_equal(value_occurence(values), expected)
 
 
-class TestEncodingStandardise(object):
+class TestEncodingStandardise:
     def test_encode_soundex(self):
         values = pd.Series(
             [
