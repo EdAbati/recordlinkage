@@ -29,12 +29,12 @@ class FellegiSunter:
     ----------
 
     Fellegi, Ivan P and Alan B Sunter. 1969. "A theory for record linkage."
-    Journal of the American Statistical Association 64(328):1183–1210.
+    Journal of the American Statistical Association 64(328):1183-1210.
 
     """
 
     def __init__(self, use_col_names=True, *args, **kwargs):
-        super(FellegiSunter, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.use_col_names = use_col_names
         self._column_labels = None
