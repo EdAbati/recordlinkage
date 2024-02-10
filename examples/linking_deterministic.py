@@ -15,9 +15,10 @@ coefficients = [1.5, 1.5, 8.0, 6.0, 2.5, 6.5, 5.0]
 """
 
 import recordlinkage as rl
-from recordlinkage.index import Block
-from recordlinkage.compare import Exact, String
+from recordlinkage.compare import Exact
+from recordlinkage.compare import String
 from recordlinkage.datasets import load_febrl4
+from recordlinkage.index import Block
 
 # set logging
 rl.logging.set_verbosity(rl.logging.INFO)

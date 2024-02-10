@@ -1,7 +1,7 @@
 import os
-import tempfile
-import shutil
 import pickle
+import shutil
+import tempfile
 
 import numpy as np
 import pandas as pd
@@ -9,12 +9,15 @@ import pandas.testing as pdt
 import pytest
 
 import recordlinkage
+from recordlinkage.algorithms.indexing import random_pairs_without_replacement
 from recordlinkage.algorithms.indexing import (
-    random_pairs_without_replacement,
     random_pairs_without_replacement_low_memory,
 )
-from recordlinkage.index import Full, Block, SortedNeighbourhood, Random
 from recordlinkage.contrib.index import NeighbourhoodBlock
+from recordlinkage.index import Block
+from recordlinkage.index import Full
+from recordlinkage.index import Random
+from recordlinkage.index import SortedNeighbourhood
 from recordlinkage.types import is_pandas_2d_multiindex
 
 

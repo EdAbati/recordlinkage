@@ -3,13 +3,10 @@
 import math
 
 import numpy as np
-from numpy.testing import assert_almost_equal
-
 import pandas as pd
 import pandas.testing as pdt
-
 import pytest
-
+from numpy.testing import assert_almost_equal
 from sklearn.exceptions import NotFittedError
 from sklearn.preprocessing import LabelBinarizer
 
@@ -548,7 +545,7 @@ class TestFellegiSunter(TestClassifyData):
         assert isinstance(cl.m_probs, dict)
         assert len(cl.m_probs.keys()) == self.X_train.shape[1]
         for col, value in cl.m_probs.items():
-            for key, out in value.items():
+            for key, _out in value.items():
                 assert_almost_equal(
                     np.exp(cl.log_m_probs[col][key]), cl.m_probs[col][key]
                 )
@@ -557,7 +554,7 @@ class TestFellegiSunter(TestClassifyData):
         assert isinstance(cl.u_probs, dict)
         assert len(cl.u_probs.keys()) == self.X_train.shape[1]
         for col, value in cl.u_probs.items():
-            for key, out in value.items():
+            for key, _out in value.items():
                 assert_almost_equal(
                     np.exp(cl.log_u_probs[col][key]), cl.u_probs[col][key]
                 )

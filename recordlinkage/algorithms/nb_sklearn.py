@@ -259,7 +259,7 @@ class BaseNB(BaseEstimator, ClassifierMixin):
     @property
     def labels_(self):
         c = []
-        for i, bin in enumerate(self._binarizers):
+        for _i, bin in enumerate(self._binarizers):
             c.append(list(bin.classes_))
 
         return c
@@ -347,7 +347,8 @@ class NaiveBayes(BaseNB):
         if np.min(self.alpha) < _ALPHA_MIN:
             warnings.warn(
                 "alpha too small will result in numeric errors, "
-                "setting alpha = %.1e" % _ALPHA_MIN
+                "setting alpha = %.1e" % _ALPHA_MIN,
+                stacklevel=2,
             )
             return np.maximum(self.alpha, _ALPHA_MIN)
         return self.alpha
@@ -489,7 +490,7 @@ class ECM(BaseNB):
 
         feat_i = 0
 
-        for i, bin in enumerate(self._binarizers):
+        for _i, bin in enumerate(self._binarizers):
             bin_len = bin.classes_.shape[0]
 
             rand_vals_0 = np.random.rand(bin_len)
@@ -623,7 +624,8 @@ class ECM(BaseNB):
             if np.all(np.isnan(feature_log_prob_)):
                 logging.warning(
                     "ECM algorithm might not converged correctly after "
-                    "{} iterations".format(iteration)
+                    "{} iterations".format(iteration),
+                    stacklevel=2,
                 )
                 break
 
@@ -642,9 +644,7 @@ class ECM(BaseNB):
         else:
             if iteration == self.max_iter:
                 logging.info(
-                    "ECM algorithm stopped at {} (=max_iter) iterations".format(
-                        iteration
-                    )
+                    f"ECM algorithm stopped at {iteration} (=max_iter) iterations"
                 )
 
         return self

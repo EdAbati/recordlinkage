@@ -1,5 +1,6 @@
 import recordlinkage as rl
-from recordlinkage.datasets import load_febrl1, load_febrl4
+from recordlinkage.datasets import load_febrl1
+from recordlinkage.datasets import load_febrl4
 
 
 class PairsRecordLinkage:

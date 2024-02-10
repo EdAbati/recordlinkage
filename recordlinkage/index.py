@@ -7,8 +7,8 @@ from recordlinkage import rl_logging as logging
 from recordlinkage.algorithms.indexing import random_pairs_with_replacement
 from recordlinkage.algorithms.indexing import random_pairs_without_replacement
 from recordlinkage.algorithms.indexing import (
-    random_pairs_without_replacement_low_memory,
-)  # NOQA
+    random_pairs_without_replacement_low_memory,  # NOQA
+)
 from recordlinkage.base import BaseIndexAlgorithm
 from recordlinkage.measures import full_index_size
 from recordlinkage.utils import listify

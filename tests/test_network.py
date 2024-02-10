@@ -6,7 +6,6 @@ import pandas as pd
 
 # testing utils from pandas
 import pandas.testing as pdt
-
 import pytest
 
 try:
@@ -14,7 +13,9 @@ try:
 except ImportError:
     pass
 
-from recordlinkage import OneToOneLinking, OneToManyLinking, ConnectedComponents
+from recordlinkage import ConnectedComponents
+from recordlinkage import OneToManyLinking
+from recordlinkage import OneToOneLinking
 
 
 def test_one_to_one_linking():
@@ -85,5 +86,5 @@ def test_connected_components():
         pd.MultiIndex.from_tuples([(8, 9)]),
     ]
 
-    for i, mi in enumerate(expected):
+    for i, _mi in enumerate(expected):
         pdt.assert_index_equal(sample_connected[i], expected[i])

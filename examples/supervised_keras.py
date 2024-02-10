@@ -5,12 +5,12 @@ import tensorflow as tf
 
 try:
     from tensorflow.keras import layers
-except ModuleNotFoundError:
-    raise ModuleNotFoundError("Please upgrade tensorflow.")
+except ModuleNotFoundError as err:
+    raise ModuleNotFoundError("Please upgrade tensorflow.") from err
 
 import recordlinkage as rl
-from recordlinkage.base import BaseClassifier
 from recordlinkage.adapters import KerasAdapter
+from recordlinkage.base import BaseClassifier
 from recordlinkage.datasets import binary_vectors
 
 # create a dataset with the following settings

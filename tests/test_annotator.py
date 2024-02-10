@@ -1,6 +1,7 @@
 import recordlinkage as rl
+from recordlinkage.datasets import load_febrl1
+from recordlinkage.datasets import load_febrl4
 from recordlinkage.index import Block
-from recordlinkage.datasets import load_febrl1, load_febrl4
 
 
 def test_annotation_link(tmp_path):

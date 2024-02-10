@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 # testing utils from pandas
 import pandas.testing as pdt

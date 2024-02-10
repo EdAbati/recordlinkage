@@ -4,20 +4,17 @@ from os import environ
 from pathlib import Path
 
 import numpy
-
 import pandas
-
 import pytest
 
-from recordlinkage.datasets import (
-    load_febrl1,
-    load_febrl2,
-    load_febrl3,
-    load_febrl4,
-    load_krebsregister,
-    binary_vectors,
-)
-from recordlinkage.datasets import get_data_home, clear_data_home
+from recordlinkage.datasets import binary_vectors
+from recordlinkage.datasets import clear_data_home
+from recordlinkage.datasets import get_data_home
+from recordlinkage.datasets import load_febrl1
+from recordlinkage.datasets import load_febrl2
+from recordlinkage.datasets import load_febrl3
+from recordlinkage.datasets import load_febrl4
+from recordlinkage.datasets import load_krebsregister
 
 FEBRL_DEDUP = [
     # nlinks = 500
