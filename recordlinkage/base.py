@@ -1,6 +1,5 @@
 """Base module for record linkage."""
 
-
 import time
 import warnings
 from abc import ABCMeta
@@ -1055,7 +1054,7 @@ class BaseClassifier(metaclass=ABCMeta):
         """Return different formatted classification results."""
         return_type = cf.get_option("classification.return_type")
 
-        if type(result) != np.ndarray:
+        if not isinstance(result, np.ndarray):
             raise ValueError("numpy.ndarray expected.")
 
         # return the pandas.MultiIndex

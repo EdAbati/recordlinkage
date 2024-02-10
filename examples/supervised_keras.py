@@ -1,6 +1,5 @@
 """Example: Supervised learning with Neural Networks."""
 
-
 import numpy as np
 import tensorflow as tf
 

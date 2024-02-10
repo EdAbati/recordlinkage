@@ -1,4 +1,4 @@
-import sys
+# import sys
 
 import jellyfish
 import numpy as np
@@ -73,10 +73,10 @@ def phonetic(s, method, concat=True, encoding="utf-8", decode_error="strict"):
     """
 
     # encoding
-    if sys.version_info[0] == 2:
-        s = s.apply(
-            lambda x: x.decode(encoding, decode_error) if type(x) == bytes else x
-        )
+    # if sys.version_info[0] == 2:
+    #     s = s.apply(
+    #         lambda x: x.decode(encoding, decode_error) if type(x) == bytes else x
+    #     )
 
     if concat:
         s = s.str.replace(r"[\-\_\s]", "", regex=True)
