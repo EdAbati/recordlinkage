@@ -13,14 +13,13 @@ repos:
     rev: 24.1.1
     hooks:
     -   id: black
-        exclude: versioneer.py
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.15.0
     hooks:
     -   id: pyupgrade
         args: [--py38-plus]
-        exclude: versioneer.py
 -   repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.0.278
     hooks:
     -   id: ruff
+        args: [--fix]

@@ -25,7 +25,7 @@ def is_string_like(obj):
 
 
 def _iterable_not_string(x):
-    return isinstance(x, collections.Iterable) and not isinstance(x, str)
+    return isinstance(x, collections.abc.Iterable) and not isinstance(x, str)
 
 
 def is_iterator(obj):
