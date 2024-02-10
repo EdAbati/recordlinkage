@@ -111,7 +111,7 @@ def clean(
 
         # encoding
         s = s.apply(
-            lambda x: x.decode(encoding, decode_error) if type(x) == bytes else x
+            lambda x: x.decode(encoding, decode_error) if isinstance(x, bytes) else x
         )
         s = s.map(lambda x: strip_accents_fn_wrapper(x))
 

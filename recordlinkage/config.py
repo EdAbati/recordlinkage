@@ -811,9 +811,9 @@ def is_type_factory(_type):
     """
 
     def inner(x):
-        if type(x) != _type:
-            msg = "Value must have type '{typ!s}'"
-            raise ValueError(msg.format(typ=_type))
+        if not isinstance(x, _type):
+            msg = f"Value must have type '{_type!s}'"
+            raise ValueError(msg)
 
     return inner
 

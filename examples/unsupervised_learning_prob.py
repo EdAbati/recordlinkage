@@ -7,7 +7,6 @@ relatively well compared to supervised methods.
 
 """
 
-
 import numpy as np
 
 import recordlinkage as rl
