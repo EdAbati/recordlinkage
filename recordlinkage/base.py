@@ -151,10 +151,8 @@ class BaseIndex:
             eta_total = np.sum(self._eta)
 
             logging.info(
-                "indexing [{:d}/{}] - time: {:.2f}s - "
-                "pairs_total: {:d}/{:d} - rr_total: {:0.5f}".format(
-                    self._i, i_max, eta_total, n_total, n_max_total, rr_avg
-                )
+                f"indexing [{self._i:d}/{i_max}] - time: {eta_total:.2f}s - "
+                f"pairs_total: {n_total:d}/{n_max_total:d} - rr_total: {rr_avg:0.5f}"
             )
 
         self._i += 1
@@ -282,10 +280,7 @@ class BaseIndexAlgorithm:
 
     def _make_index_names(self, name1, name2):
         if pandas.notnull(name1) and pandas.notnull(name2) and (name1 == name2):
-            return [
-                f"{name1}{self.suffixes[0]}",
-                f"{name1}{self.suffixes[1]}",
-            ]
+            return [f"{name1}{self.suffixes[0]}", f"{name1}{self.suffixes[1]}"]
         else:
             return [name1, name2]
 
@@ -541,6 +536,7 @@ class BaseCompare:
                 "http://recordlinkage.readthedocs.io/"
                 "en/latest/ref-compare.html",
                 DeprecationWarning,
+                stacklevel=2,
             )
 
     def __repr__(self):
@@ -709,11 +705,7 @@ class BaseCompare:
         self._n.append(n)
 
         # log
-        logging.info(
-            "comparing [{:d}/{}] - time: {:.2f}s - pairs: {}".format(
-                self._i, i_max, eta, n
-            )
-        )
+        logging.info(f"comparing [{self._i:d}/{i_max}] - time: {eta:.2f}s - pairs: {n}")
 
         # log total
         if self._output_log_total:
@@ -791,7 +783,7 @@ class BaseCompare:
                 raise ValueError(
                     "expected numpy.ndarray or "
                     "pandas object to be returned, "
-                    "got '{}'".format(feat.__class__.__name__)
+                    f"got '{feat.__class__.__name__}'"
                 )
 
         result = pandas.concat(feat_conc, axis=1, copy=False)
@@ -863,15 +855,12 @@ class BaseClassifier(metaclass=ABCMeta):
     unsupervised learning.
     """
 
-    def __init__(self):
-        pass
-
     def learn(self, *args, **kwargs):
         """[DEPRECATED] Use 'fit_predict'."""
 
         warnings.warn(
-            "learn is deprecated, {}.fit_predict "
-            "instead".format(self.__class__.__name__)
+            f"learn is deprecated, {self.__class__.__name__}.fit_predict " "instead",
+            stacklevel=2,
         )
         return self.fit_predict(*args, **kwargs)
 
@@ -883,7 +872,7 @@ class BaseClassifier(metaclass=ABCMeta):
         comparison_vectors : pandas.DataFrame
             The comparison vectors (or features) to fit the classifier with.
         """
-        pass
+        return
 
     @abstractmethod
     def _fit(self, *args, **kwargs):
@@ -926,7 +915,7 @@ class BaseClassifier(metaclass=ABCMeta):
                     raise LearningError(
                         "both matches and non-matches needed in the"
                         + "trainingsdata, only non-matches found"
-                    )
+                    ) from err
                 else:
                     raise err
 
@@ -1013,7 +1002,7 @@ class BaseClassifier(metaclass=ABCMeta):
         result : pandas.Series
             The resulting classification.
         """
-        pass
+        return
 
     @abstractmethod
     def _prob_match(self, *args, **kwargs):
@@ -1074,6 +1063,6 @@ class BaseClassifier(metaclass=ABCMeta):
         # return_type not known
         else:
             raise ValueError(
-                "return_type {} unknown. Choose 'index', 'series' or "
-                "'array'".format(return_type)
+                f"return_type {return_type} unknown. Choose 'index', 'series' or "
+                "'array'"
             )

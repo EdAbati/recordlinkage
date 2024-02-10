@@ -122,7 +122,7 @@ class AnnotationWrapper:
 
         columns_a = list(self.df_a)
 
-        for index, pair in df_pairs.iterrows():
+        for _index, pair in df_pairs.iterrows():
             result_record = {
                 "fields": [],
                 "identifiers": {
@@ -187,11 +187,14 @@ class AnnotationResult:
 
     """
 
-    def __init__(self, pairs=[], version=SCHEMA_VERSION_LATEST):
+    def __init__(self, pairs=None, version=SCHEMA_VERSION_LATEST):
         self.version = version
         self.pairs = pairs
 
     def _get_annotation_value(self, label, label_str=None):
+        if self.pairs is None:
+            return None
+
         result_pairs = []
 
         for item in self.pairs:

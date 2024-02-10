@@ -1,6 +1,6 @@
-import numpy as np
 import matplotlib.colors as mlc
 import matplotlib.pyplot as mlp
+import numpy as np
 
 figure, axes = mlp.subplots(nrows=1, ncols=2, figsize=(8, 5))
 

@@ -7,13 +7,16 @@ import sys
 import tempfile
 
 import numpy as np
-from numpy import arange, nan
-
 import pandas.testing as pdt
-from pandas import DataFrame, MultiIndex, Series, to_datetime
 
 # dependencies testing specific
 import pytest
+from numpy import arange
+from numpy import nan
+from pandas import DataFrame
+from pandas import MultiIndex
+from pandas import Series
+from pandas import to_datetime
 
 import recordlinkage
 from recordlinkage.base import BaseCompareFeature
@@ -534,7 +537,8 @@ class TestCompareApi(TestData):
 
         if sys.version.startswith("3"):
             # import joblib dependencies
-            from joblib import Parallel, delayed
+            from joblib import Parallel
+            from joblib import delayed
 
             # split the data into smaller parts
             len_index = int(len(self.index_AB) / 2)
@@ -575,7 +579,9 @@ class TestCompareApi(TestData):
         pdt.assert_frame_equal(result_label, result_position)
 
     def test_pass_list_of_features(self):
-        from recordlinkage.compare import FrequencyA, VariableA, VariableB
+        from recordlinkage.compare import FrequencyA
+        from recordlinkage.compare import VariableA
+        from recordlinkage.compare import VariableB
 
         # setup datasets and record pairs
         A = DataFrame({"col": ["abc", "abc", "abc", "abc", "abc"]})
@@ -1280,7 +1286,7 @@ class TestCompareStrings(TestData):
         B = DataFrame({"col": [1, 1, 1, nan, nan]})
         ix = MultiIndex.from_arrays([A.index.values, B.index.values])
 
-        with pytest.raises(Exception):
+        with pytest.raises((TypeError, AttributeError)):
             comp = recordlinkage.Compare()
             comp.string("col", "col", method=alg)
             comp.compute(ix, A, B)
@@ -1352,7 +1358,9 @@ class TestCompareFreq:
         ix = MultiIndex.from_arrays([A.index.values, B.index.values])
 
         # the part to test
-        from recordlinkage.compare import Frequency, FrequencyA, FrequencyB
+        from recordlinkage.compare import Frequency
+        from recordlinkage.compare import FrequencyA
+        from recordlinkage.compare import FrequencyB
 
         comp = recordlinkage.Compare()
         comp.add(Frequency(left_on="col"))
@@ -1436,7 +1444,9 @@ class TestCompareVariable:
         ix = MultiIndex.from_arrays([A.index.values, B.index.values])
 
         # the part to test
-        from recordlinkage.compare import Variable, VariableA, VariableB
+        from recordlinkage.compare import Variable
+        from recordlinkage.compare import VariableA
+        from recordlinkage.compare import VariableB
 
         comp = recordlinkage.Compare()
         comp.add(Variable(left_on="col"))

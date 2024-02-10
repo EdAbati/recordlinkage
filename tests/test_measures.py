@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 
-import recordlinkage as rl
-
 import numpy
 import pandas
+
+import recordlinkage as rl
 
 FULL_INDEX = pandas.MultiIndex.from_product(
     [[1, 2, 3], [1, 2, 3]], names=["first", "second"]  # 3x3 matrix

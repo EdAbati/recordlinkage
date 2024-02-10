@@ -120,23 +120,20 @@ The main features of this Python record linkage toolkit are:
 The most recent documentation and API reference can be found at
 [recordlinkage.readthedocs.org](http://recordlinkage.readthedocs.org/en/latest/).
 The documentation provides some basic usage examples like
-[deduplication](http://recordlinkage.readthedocs.io/en/latest/notebooks/data_deduplication.html)
+[deduplication](http://recordlinkage.readthedocs.io/en/latest/guides/data_deduplication.html)
 and
-[linking](http://recordlinkage.readthedocs.io/en/latest/notebooks/link_two_dataframes.html)
+[linking](http://recordlinkage.readthedocs.io/en/latest/guides/link_two_dataframes.html)
 census data. More examples are coming soon. If you do have interesting
 examples to share, let us know.
 
 ## Installation
 
-The Python Record linkage Toolkit requires Python 3.6 or higher. Install the
+The Python Record linkage Toolkit requires Python 3.8 or higher. Install the
 package easily with pip
 
 ``` sh
 pip install recordlinkage
 ```
-
-Python 2.7 users can use version \<= 0.13, but it is advised to use
-Python \>= 3.5.
 
 The toolkit depends on popular packages like
 [Pandas](https://github.com/pydata/pandas),
