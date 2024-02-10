@@ -49,9 +49,10 @@ packages = ["recordlinkage"]
 write_to = "recordlinkage/_version.py"
 
 [tool.ruff]
+[tool.ruff.lint]
 select = ["E", "F", "UP", "I", "B"]
 ignore = ["B006"]
 exclude = ["docs/conf.py"]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 force-single-line = true

@@ -186,7 +186,7 @@ class TestIndexAlgorithmApi(TestData):
 
     @pytest.mark.parametrize("index_class", get_test_algorithms())
     def test_index_names_dedup(self, index_class):
-        index_names = ["dedup", None, "index", int(1)]
+        index_names = ["dedup", None, "index", 1]
         expected = [
             ["dedup_1", "dedup_2"],
             [None, None],

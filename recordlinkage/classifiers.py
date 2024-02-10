@@ -420,8 +420,8 @@ class LogisticRegressionClassifier(SKLearnAdapter, Classifier):
             prediction = self.kernel.predict(features)
         except NotFittedError as err:
             raise NotFittedError(
-                "{} is not fitted yet. Call 'fit' with appropriate "
-                "arguments before using this method.".format(type(self).__name__)
+                f"{type(self).__name__} is not fitted yet. Call 'fit' with appropriate "
+                "arguments before using this method."
             ) from err
 
         return prediction

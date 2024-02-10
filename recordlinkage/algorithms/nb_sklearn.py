@@ -520,9 +520,7 @@ class ECM(BaseNB):
                 raise ValueError(
                     "Only binary labels are allowed for "
                     "'jaro'method. "
-                    "Column {} has {} different labels.".format(
-                        i, bin.classes_.shape[0]
-                    )
+                    f"Column {i} has {bin.classes_.shape[0]} different labels."
                 )
 
             for binclass in bin.classes_:
@@ -576,7 +574,7 @@ class ECM(BaseNB):
             )
         else:
             raise ValueError(
-                "'{}' is not a valid value for " "argument 'init'".format(self.init)
+                f"'{self.init}' is not a valid value for " "argument 'init'"
             )
 
         iteration = 0
@@ -624,7 +622,7 @@ class ECM(BaseNB):
             if np.all(np.isnan(feature_log_prob_)):
                 logging.warning(
                     "ECM algorithm might not converged correctly after "
-                    "{} iterations".format(iteration),
+                    f"{iteration} iterations",
                     stacklevel=2,
                 )
                 break

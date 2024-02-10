@@ -55,7 +55,7 @@ def return_type_deprecator(func):
             warnings.warn(
                 "The argument 'return_type' is deprecated in the next "
                 "version. Use recordlinkage.set_option('classification."
-                "return_type', '{}') instead.".format(return_type),
+                f"return_type', '{return_type}') instead.",
                 DeprecationWarning,
                 stacklevel=2,
             )
